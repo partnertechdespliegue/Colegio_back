@@ -22,6 +22,7 @@ import com.mitocode.exception.ExceptionResponse;
 import com.mitocode.model.Colegio;
 import com.mitocode.model.Curso;
 import com.mitocode.model.Tema;
+import com.mitocode.model.TipoCurso;
 import com.mitocode.service.TemaService;
 import com.mitocode.util.Constantes;
 
@@ -53,6 +54,30 @@ public class TemaController {
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(), colegio);
+		}
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@PostMapping("/listarPorTipoCurso")
+	public ResponseWrapper listarPorTipoCurso(@RequestBody TipoCurso tipoCurso) throws Exception {
+		try {
+			ResponseWrapper response = new ResponseWrapper();
+			List lsTema = service.listarPorTipoCurso(tipoCurso);
+			if (lsTema != null) {
+				response.setEstado(Constantes.valTransaccionOk);
+				response.setMsg(Constantes.msgListarTemaOk);
+				response.setAaData(lsTema);
+			} else {
+				response.setEstado(Constantes.valTransaccionError);
+				response.setMsg(Constantes.msgListarTemaError);
+			}
+			return response;
+		} catch (Exception e) {
+			System.out.println(this.getClass().getSimpleName() + " listar. ERROR : " + e.getMessage());
+			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listarPorTipoCurso",
+					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
+							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
+							+ e.getStackTrace()[0].getLineNumber(), tipoCurso);
 		}
 	}
 

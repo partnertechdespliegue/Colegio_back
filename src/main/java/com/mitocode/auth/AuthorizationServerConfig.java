@@ -47,8 +47,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		 clients.inMemory().withClient("colegio")
-		 .secret(passEncoder.encode("colegio123"))
+		 clients.inMemory().withClient("planillas123")
+		 .secret(passEncoder.encode("planillas"))
 		 .scopes("read","write")
 		 .authorizedGrantTypes("password","refresh_token")
 		 .accessTokenValiditySeconds(30000);

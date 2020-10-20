@@ -1,5 +1,8 @@
 package com.mitocode.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mitocode.model.Colegio;
 import com.mitocode.model.Curso;
 import com.mitocode.model.Grado;
@@ -15,6 +18,12 @@ public class CursoDTO {
 	private Tema tema;
 	private NivelEducativo nivelEducativo;
 	private Grado grado;
+	private List<Tema> lsTema;
+	
+	public CursoDTO() {
+		super();
+		this.lsTema = new ArrayList<Tema>();
+	}
 
 	public Curso getCurso() {
 		return curso;
@@ -62,6 +71,14 @@ public class CursoDTO {
 
 	public void setGrado(Grado grado) {
 		this.grado = grado;
+	}
+
+	public List<Tema> getLsTema() {
+		return lsTema;
+	}
+
+	public void setLsTema(List<Tema> lsTema) {
+		this.lsTema = lsTema;
 	}
 
 }

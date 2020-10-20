@@ -139,4 +139,15 @@ public class UtilitarioServiceImpl implements UtilitarioService {
 		}
 	}
 
+	@Override
+	public String insertarDatosPerfilesPaginas() {
+		try {
+			repoUtilitario.insertarPerfilesPagina();
+			return "Se insertó correctamente los Perfiles-Paginas";
+
+		} catch (Exception e) {
+			return "Se insertó correctamente los Perfiles-Paginas";
+		}
+	}
+
 }

@@ -83,8 +83,10 @@ public class TurnoController {
 				if (resp != null) {
 					if (turnoDTO.getLsReceso().size() > 0) {
 						for (Receso receso : turnoDTO.getLsReceso()) {
-							receso.setTurno(resp);
-							serviceReceso.registrar(receso);
+							if (receso != null) {
+								receso.setTurno(resp);
+								serviceReceso.registrar(receso);								
+							}
 						}
 					}
 					response.setEstado(Constantes.valTransaccionOk);

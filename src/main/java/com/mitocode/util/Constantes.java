@@ -50,6 +50,8 @@ public class Constantes {
 	public static final Integer valTransaccionErrornull = 4;
 	public static final Integer valParametrosNoenviados = 5;
 	public static final Integer valListaSinRegistros = 6; // La lista no tiene registro como resultado
+	
+	public static final String CODMINENTCUR = "MINENTCUR";
 
 	// Modulo
 	public static final String msgListarXPerfilModuloOk = "Modulos listados correctamente";

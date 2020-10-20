@@ -31,6 +31,16 @@ public class GradoServiceImpl implements GradoService{
 			throw e;
 		}
 	}
+	
+	@Override
+	public List<Grado> registrarList(List<Grado> lsGrado) {
+		try {
+			return repo.saveAll(lsGrado);
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " registrarList. ERROR : " + e.getMessage());
+			throw e;
+		}
+	}
 
 	@Override
 	public Grado modificar(Grado obj) {

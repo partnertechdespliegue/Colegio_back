@@ -21,7 +21,6 @@ import com.mitocode.dto.ResponseWrapper;
 import com.mitocode.dto.TurnoDTO;
 import com.mitocode.exception.ExceptionResponse;
 import com.mitocode.model.Receso;
-import com.mitocode.model.Sucursal;
 import com.mitocode.model.Turno;
 import com.mitocode.service.RecesoService;
 import com.mitocode.util.Constantes;

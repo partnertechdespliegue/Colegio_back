@@ -8,8 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ManyToAny;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,6 +27,10 @@ public class NivelEducativo {
 	
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_colegio", nullable = false)
+	private Colegio colegio;
 	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "nivelEducativo")
@@ -50,6 +58,14 @@ public class NivelEducativo {
 
 	public void setLsGrado(List<Grado> lsGrado) {
 		this.lsGrado = lsGrado;
+	}
+
+	public Colegio getColegio() {
+		return colegio;
+	}
+
+	public void setColegio(Colegio colegio) {
+		this.colegio = colegio;
 	}
 
 }

@@ -105,17 +105,19 @@ public class SucursalController {
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@PutMapping("/actualizar")
-	public ResponseWrapper actualizar(@RequestBody Sucursal sucursal, BindingResult result) throws Exception {
+	public ResponseWrapper actualizar(@RequestBody ColegioDTO colegioDTO, BindingResult result) throws Exception {
 
 		if (result.hasErrors()) {
 			List<String> errors = result.getFieldErrors().stream().map(err -> {
 				return err.getDefaultMessage();
 			}).collect(Collectors.toList());
 			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/actualizar",
-					"Error en la validacion: Lista de Errores:" + errors.toString(), sucursal);
+					"Error en la validacion: Lista de Errores:" + errors.toString(), colegioDTO);
 		}
 		try {
 			ResponseWrapper response = new ResponseWrapper();
+			Sucursal sucursal = colegioDTO.getSucursal();
+			sucursal.setColegio(colegioDTO.getColegio());
 			Sucursal resp = service.modificar(sucursal);
 			if (resp != null) {
 				response.setEstado(Constantes.valTransaccionOk);
@@ -131,7 +133,7 @@ public class SucursalController {
 			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/actualizar",
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
-							+ e.getStackTrace()[0].getLineNumber(), sucursal);
+							+ e.getStackTrace()[0].getLineNumber(), colegioDTO);
 		}
 	}
 	

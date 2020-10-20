@@ -1,6 +1,7 @@
 package com.mitocode.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,14 +34,14 @@ public class Sucursal {
 	@Column(name = "hora_fin_atencion", nullable = false)
 	private Timestamp horaFinAtencion;
 	
-	@Column(name = "nivel_inicial", nullable = false)
-	private Boolean nivelInicial;
-	
-	@Column(name = "nivel_primaria", nullable = false)
-	private Boolean nivelPrimaria;
-	
-	@Column(name = "nivel_secundaria", nullable = false)
-	private Boolean nivelSecundaria;
+//	@Column(name = "nivel_inicial", nullable = false)
+//	private Boolean nivelInicial;
+//	
+//	@Column(name = "nivel_primaria", nullable = false)
+//	private Boolean nivelPrimaria;
+//	
+//	@Column(name = "nivel_secundaria", nullable = false)
+//	private Boolean nivelSecundaria;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_colegio", nullable = false)
@@ -100,30 +101,6 @@ public class Sucursal {
 
 	public void setHoraFinAtencion(Timestamp horaFinAtencion) {
 		this.horaFinAtencion = horaFinAtencion;
-	}
-
-	public Boolean getNivelInicial() {
-		return nivelInicial;
-	}
-
-	public void setNivelInicial(Boolean nivelInicial) {
-		this.nivelInicial = nivelInicial;
-	}
-
-	public Boolean getNivelPrimaria() {
-		return nivelPrimaria;
-	}
-
-	public void setNivelPrimaria(Boolean nivelPrimaria) {
-		this.nivelPrimaria = nivelPrimaria;
-	}
-
-	public Boolean getNivelSecundaria() {
-		return nivelSecundaria;
-	}
-
-	public void setNivelSecundaria(Boolean nivelSecundaria) {
-		this.nivelSecundaria = nivelSecundaria;
 	}
 
 	public Colegio getColegio() {

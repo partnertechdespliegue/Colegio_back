@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.mitocode.model.Tema;
+import com.mitocode.model.TipoCurso;
 
 public interface TemaRepo extends JpaRepository<Tema, Integer>{
 	
@@ -15,5 +16,7 @@ public interface TemaRepo extends JpaRepository<Tema, Integer>{
 	@Query(value="SELECT te.* FROM tema te INNER JOIN tipo_curso tc on te.id_tipo_curso = tc.id_tipo_curso\r\n" + 
 			"where tc.id_colegio = :idColegio", nativeQuery = true)
 	public List<Tema> listarPorColegio(@Param("idColegio") Integer idColegio);
+	
+	public List<Tema> findByTipoCurso(TipoCurso tipoCurso);
 
 }

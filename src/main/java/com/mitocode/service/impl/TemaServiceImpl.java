@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mitocode.model.Tema;
+import com.mitocode.model.TipoCurso;
 import com.mitocode.repo.TemaRepo;
 import com.mitocode.service.TemaService;
 
@@ -64,6 +65,17 @@ public class TemaServiceImpl implements TemaService{
 			throw e;
 		}
 	}
+	
+	@Override
+	public List<Tema> listarPorTipoCurso(TipoCurso tipoCurso) {
+		try {
+			return repo.findByTipoCurso(tipoCurso);
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " listarPorTipoCurso. ERROR : " + e.getMessage());
+			throw e;
+		}
+	}
+
 
 	@Override
 	public Boolean eliminar(Integer id) {

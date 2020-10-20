@@ -64,6 +64,16 @@ public class CursoServiceImpl implements CursoService{
 			throw e;
 		}
 	}
+	
+	@Override
+	public List<Curso> listarPorTipoCursoYGrado(Integer idTipoCurso, Integer idGrado) {
+		try {
+			return repo.listarPorTipoCursoYGrado(idTipoCurso, idGrado);
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " listarPorTipoCursoYGrado. ERROR : " + e.getMessage());
+			throw e;
+		}
+	}
 
 	@Override
 	public Boolean eliminar(Integer id) {

@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mitocode.model.Colegio;
 import com.mitocode.model.NivelEducativo;
+import com.mitocode.model.Sucursal;
 import com.mitocode.repo.NivelEducativoRepo;
 import com.mitocode.service.NivelEducativoService;
 
@@ -25,6 +27,16 @@ public class NivelEducativoServiceImpl implements NivelEducativoService{
 			return repo.save(obj);
 		} catch (Exception e) {
 			LOG.error(this.getClass().getSimpleName() + " registrar. ERROR : " + e.getMessage());
+			throw e;
+		}
+	}
+	
+	@Override
+	public List<NivelEducativo> registrarList(List<NivelEducativo> lsNivEduc) {
+		try {
+			return repo.saveAll(lsNivEduc);
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " registrarList. ERROR : " + e.getMessage());
 			throw e;
 		}
 	}
@@ -51,6 +63,16 @@ public class NivelEducativoServiceImpl implements NivelEducativoService{
 			return repo.findAll();
 		} catch (Exception e) {
 			LOG.error(this.getClass().getSimpleName() + " listar. ERROR : " + e.getMessage());
+			throw e;
+		}
+	}
+	
+	@Override
+	public List<NivelEducativo> listarPorColegio(Colegio colegio) {
+		try {
+			return repo.findByColegio(colegio);
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " listarPorColegio. ERROR : " + e.getMessage());
 			throw e;
 		}
 	}

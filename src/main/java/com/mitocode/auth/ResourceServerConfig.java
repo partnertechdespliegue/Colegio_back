@@ -39,17 +39,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		Map<String, Object> objU = new HashMap<>();
 		Map<String, Object> objA = new HashMap<>();
 
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/anomes/listarMeses").permitAll()
+		http.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/api/utilitario/llenarBD").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/tema/*").permitAll()
-				.antMatchers(HttpMethod.PUT, "/api/tema/*").permitAll()
-				.antMatchers(HttpMethod.DELETE, "/api/tema/*").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/tema/*").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/temario/*").permitAll()
-				.antMatchers(HttpMethod.PUT, "/api/temario/*").permitAll()
-				.antMatchers(HttpMethod.DELETE, "/api/temario/*").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/temario/*").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/usuario/uploadImage/img/*").permitAll().anyRequest().authenticated()
+				.antMatchers(HttpMethod.POST, "/api/horarioSalon/registrar").permitAll()
+				.anyRequest().authenticated()
 				.and().cors().configurationSource(corsConfigurationSource()).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

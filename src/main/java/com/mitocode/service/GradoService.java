@@ -9,4 +9,6 @@ public interface GradoService extends ICRUD<Grado>{
 
 	List<Grado> listarPorNivelEducativo(NivelEducativo nivelEducativo);
 
+	List<Grado> registrarList(List<Grado> lsGrado);
+
 }

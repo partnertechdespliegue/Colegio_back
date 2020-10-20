@@ -44,6 +44,10 @@ public class Curso {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "curso")
 	private List<Temario> lsTemario;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "curso")
+	private List<HorarioSalon> lsHorarioSalon;
 
 	public Integer getIdCurso() {
 		return idCurso;

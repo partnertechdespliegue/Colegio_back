@@ -14,6 +14,7 @@ public interface UtilitarioService {
 	public String insertarDatosModulo(List<Modulo> modulos);
 	public String insertarDatosPagina(List<Pagina> paginas);
 	public String insertarDatosPerfil(List<Perfil> perfiles);
+	public String insertarDatosPerfilesPaginas();
 	public String insertarDatosUsuarios(List<Usuario> usuarios);
 	public String insertarDatosNivelEducativo(List<NivelEducativo> nivelesEducativo);
 	public String insertarDatosGrado(List<Grado> grados);

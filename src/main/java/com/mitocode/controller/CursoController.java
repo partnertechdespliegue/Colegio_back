@@ -21,7 +21,10 @@ import com.mitocode.dto.ResponseWrapper;
 import com.mitocode.exception.ExceptionResponse;
 import com.mitocode.model.Colegio;
 import com.mitocode.model.Curso;
+import com.mitocode.model.Tema;
+import com.mitocode.model.Temario;
 import com.mitocode.service.CursoService;
+import com.mitocode.service.TemarioService;
 import com.mitocode.util.Constantes;
 
 @RestController
@@ -30,6 +33,9 @@ public class CursoController {
 	
 	@Autowired
 	CursoService service;
+	
+	@Autowired
+	TemarioService serviceTemario;
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@PostMapping("/listar")
@@ -54,6 +60,30 @@ public class CursoController {
 							+ e.getStackTrace()[0].getLineNumber(), colegio);
 		}
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@PostMapping("/listarPorTipoCursoYGrado")
+	public ResponseWrapper listarPorTipoCursoYGrado(@RequestBody CursoDTO cursoDTO) throws Exception {
+		try {
+			ResponseWrapper response = new ResponseWrapper();
+			List lsCurso = service.listarPorTipoCursoYGrado(cursoDTO.getTipoCurso().getIdTipoCurso(), cursoDTO.getGrado().getIdGrado());
+			if (lsCurso != null) {
+				response.setEstado(Constantes.valTransaccionOk);
+				response.setMsg(Constantes.msgListarCursoOk);
+				response.setAaData(lsCurso);
+			} else {
+				response.setEstado(Constantes.valTransaccionError);
+				response.setMsg(Constantes.msgListarCursoError);
+			}
+			return response;
+		} catch (Exception e) {
+			System.out.println(this.getClass().getSimpleName() + " listar. ERROR : " + e.getMessage());
+			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listarPorTipoCursoYGrado",
+					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
+							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
+							+ e.getStackTrace()[0].getLineNumber(), cursoDTO);
+		}
+	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@PostMapping("/registrar")
@@ -74,6 +104,14 @@ public class CursoController {
 			curso.setGrado(cursoDTO.getGrado());
 			Curso resp = service.registrar(curso);
 			if (resp != null) {
+				if (cursoDTO.getLsTema().size() > 0) {
+					for (Tema t : cursoDTO.getLsTema()) {
+						Temario tmr = new Temario();
+						tmr.setTema(t);
+						tmr.setCurso(resp);
+						serviceTemario.registrar(tmr);
+					}
+				}
 				response.setEstado(Constantes.valTransaccionOk);
 				response.setMsg(Constantes.msgRegistrarCursoOk);
 				response.setDefaultObj(resp);
