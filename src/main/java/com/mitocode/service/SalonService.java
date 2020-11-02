@@ -9,4 +9,6 @@ public interface SalonService extends ICRUD<Salon>{
 
 	List<Salon> listarPorSucursal(Sucursal sucursal);
 
+	List<Salon> listarPorSucursalYTipoSalon(Sucursal sucursal, Integer tipoSalon);
+
 }

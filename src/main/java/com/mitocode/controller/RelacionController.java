@@ -14,97 +14,106 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mitocode.dto.RelacionDTO;
 import com.mitocode.dto.ResponseWrapper;
-import com.mitocode.dto.SalonDTO;
 import com.mitocode.exception.ExceptionResponse;
-import com.mitocode.model.Salon;
-import com.mitocode.model.Sucursal;
-import com.mitocode.service.SalonService;
+import com.mitocode.model.Apoderado;
+import com.mitocode.model.Estudiante;
+import com.mitocode.model.Relacion;
+import com.mitocode.service.RelacionService;
 import com.mitocode.util.Constantes;
 
 @RestController
-@RequestMapping("/api/salon")
-public class SalonController {
+@RequestMapping("/api/relacion")
+public class RelacionController {
 
 	@Autowired
-	SalonService service;
+	RelacionService service;
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	@PostMapping("/listar")
-	public ResponseWrapper listar(@RequestBody Sucursal sucursal) throws Exception {
+	@PostMapping("/listarPorEstudiante")
+	public ResponseWrapper listarPorEstudiante(@RequestBody Estudiante estudiante) throws Exception {
 		try {
 			ResponseWrapper response = new ResponseWrapper();
-			List lsSalon = service.listarPorSucursal(sucursal);
-			if (lsSalon != null) {
+			List lsRelacion = service.listarPorEstudiante(estudiante);
+			if (lsRelacion != null) {
 				response.setEstado(Constantes.valTransaccionOk);
-				response.setMsg(Constantes.msgListarSalonOk);
-				response.setAaData(lsSalon);
+				response.setMsg(Constantes.msgListarRelacionOk);
+				response.setAaData(lsRelacion);
 			} else {
 				response.setEstado(Constantes.valTransaccionError);
-				response.setMsg(Constantes.msgListarSalonError);
+				response.setMsg(Constantes.msgListarRelacionError);
 			}
 			return response;
 		} catch (Exception e) {
 			System.out.println(this.getClass().getSimpleName() + " listar. ERROR : " + e.getMessage());
-			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listar",
+			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listarPorEstudiante",
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(),
-					sucursal);
+					estudiante);
 		}
 	}
-	
+
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	@PostMapping("/listarPorTipo/{tipoSalon}")
-	public ResponseWrapper listarPorTipo(@RequestBody Sucursal sucursal, @PathVariable("tipoSalon") Integer tipoSalon) throws Exception {
+	@PostMapping("/listarPorApoderado")
+	public ResponseWrapper listarPorApoderado(@RequestBody Apoderado apoderado) throws Exception {
 		try {
 			ResponseWrapper response = new ResponseWrapper();
-			List lsSalon = service.listarPorSucursalYTipoSalon(sucursal, tipoSalon);
-			if (lsSalon != null) {
+			List lsRelacion = service.listarPorApoderado(apoderado);
+			if (lsRelacion != null) {
 				response.setEstado(Constantes.valTransaccionOk);
-				response.setMsg(Constantes.msgListarSalonOk);
-				response.setAaData(lsSalon);
+				response.setMsg(Constantes.msgListarRelacionOk);
+				response.setAaData(lsRelacion);
 			} else {
 				response.setEstado(Constantes.valTransaccionError);
-				response.setMsg(Constantes.msgListarSalonError);
+				response.setMsg(Constantes.msgListarRelacionError);
 			}
 			return response;
 		} catch (Exception e) {
 			System.out.println(this.getClass().getSimpleName() + " listar. ERROR : " + e.getMessage());
-			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listarPorTipo",
+			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listarPorApoderado",
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(),
-					sucursal);
+					apoderado);
 		}
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@PostMapping("/registrar")
-	public ResponseWrapper registrar(@RequestBody SalonDTO salonDTO, BindingResult result) throws Exception {
+	public ResponseWrapper registrar(@RequestBody RelacionDTO relacionDTO, BindingResult result) throws Exception {
 
 		if (result.hasErrors()) {
 			List<String> errors = result.getFieldErrors().stream().map(err -> {
 				return err.getDefaultMessage();
 			}).collect(Collectors.toList());
 			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/registrar",
-					"Error en la validacion: Lista de Errores:" + errors.toString(), salonDTO);
+					"Error en la validacion: Lista de Errores:" + errors.toString(), relacionDTO);
 		}
 		try {
 			ResponseWrapper response = new ResponseWrapper();
-			Salon salon = salonDTO.getSalon();
-			salon.setSucursal(salonDTO.getSucursal());
-			Salon resp = service.registrar(salon);
-			if (resp != null) {
-				response.setEstado(Constantes.valTransaccionOk);
-				response.setMsg(Constantes.msgRegistrarSalonOk);
-				response.setDefaultObj(resp);
+			Estudiante estudiante = relacionDTO.getEstudiante();
+			Apoderado apoderado = relacionDTO.getApoderado();
+			if (!service.existePorEstuYApod(estudiante, apoderado)) {
+				Relacion relacion = new Relacion();
+				relacion.setTipoRelacion(relacionDTO.getTipoRelacion());
+				relacion.setEstudiante(estudiante);
+				relacion.setApoderado(apoderado);
+				Relacion resp = service.registrar(relacion);
+				if (resp != null) {
+					response.setEstado(Constantes.valTransaccionOk);
+					response.setMsg(Constantes.msgRegistrarRelacionOk);
+					response.setDefaultObj(resp);
+				} else {
+					response.setEstado(Constantes.valTransaccionError);
+					response.setMsg(Constantes.msgRegistrarRelacionError);
+				}
 			} else {
-				response.setEstado(Constantes.valTransaccionError);
-				response.setMsg(Constantes.msgRegistrarSalonError);
+				response.setEstado(Constantes.valTransaccionYaExiste);
+				response.setMsg(Constantes.msgExisteRelacion);
 			}
 			return response;
 		} catch (Exception e) {
@@ -113,55 +122,22 @@ public class SalonController {
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(),
-					salonDTO);
-		}
-	}
-	
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	@PutMapping("/actualizar")
-	public ResponseWrapper actualizar(@RequestBody Salon salon, BindingResult result) throws Exception {
-
-		if (result.hasErrors()) {
-			List<String> errors = result.getFieldErrors().stream().map(err -> {
-				return err.getDefaultMessage();
-			}).collect(Collectors.toList());
-			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/actualizar",
-					"Error en la validacion: Lista de Errores:" + errors.toString(), salon);
-		}
-		try {
-			ResponseWrapper response = new ResponseWrapper();
-			Salon resp = service.modificar(salon);
-			if (resp != null) {
-				response.setEstado(Constantes.valTransaccionOk);
-				response.setMsg(Constantes.msgActualizarSalonOk);
-				response.setDefaultObj(resp);
-			} else {
-				response.setEstado(Constantes.valTransaccionError);
-				response.setMsg(Constantes.msgActualizarSalonError);
-			}
-			return response;
-		} catch (Exception e) {
-			System.out.println(this.getClass().getSimpleName() + " actualizar. ERROR : " + e.getMessage());
-			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/actualizar",
-					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
-							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
-							+ e.getStackTrace()[0].getLineNumber(),
-							salon);
+					relacionDTO);
 		}
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	@DeleteMapping("/{idSalon}")
-	public ResponseWrapper eliminar(@PathVariable("idSalon") Integer idSalon) throws Exception {
+	@DeleteMapping("/{idRelacion}")
+	public ResponseWrapper eliminar(@PathVariable("idRelacion") Integer idRelacion) throws Exception {
 
 		try {
 			ResponseWrapper response = new ResponseWrapper();
-			if (!service.eliminar(idSalon)) {
+			if (!service.eliminar(idRelacion)) {
 				response.setEstado(Constantes.valTransaccionOk);
-				response.setMsg(Constantes.msgEliminarSalonOk);
+				response.setMsg(Constantes.msgEliminarRelacionOk);
 			} else {
 				response.setEstado(Constantes.valTransaccionError);
-				response.setMsg(Constantes.msgEliminarSalonError);
+				response.setMsg(Constantes.msgEliminarRelacionError);
 			}
 			return response;
 		} catch (Exception e) {
@@ -170,7 +146,7 @@ public class SalonController {
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(),
-							idSalon);
+					idRelacion);
 		}
 	}
 }

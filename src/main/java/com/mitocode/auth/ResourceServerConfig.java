@@ -41,7 +41,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 		http.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/api/utilitario/llenarBD").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/horarioSalon/registrar").permitAll()
+				.antMatchers(HttpMethod.GET,"/api/estudiante/conseguirFoto/*").permitAll()
+				.antMatchers(HttpMethod.GET,"/api/apoderado/conseguirFoto/*").permitAll()
+				.antMatchers(HttpMethod.POST,"/api/seccionEstudiante/*").permitAll()
+				.antMatchers(HttpMethod.GET,"/api/seccionEstudiante/*").permitAll()
 				.anyRequest().authenticated()
 				.and().cors().configurationSource(corsConfigurationSource()).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

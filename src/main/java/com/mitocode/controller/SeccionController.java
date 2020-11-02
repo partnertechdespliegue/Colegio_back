@@ -14,42 +14,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mitocode.dto.ResponseWrapper;
-import com.mitocode.dto.SalonDTO;
+import com.mitocode.dto.SeccionDTO;
 import com.mitocode.exception.ExceptionResponse;
-import com.mitocode.model.Salon;
+import com.mitocode.model.Seccion;
 import com.mitocode.model.Sucursal;
-import com.mitocode.service.SalonService;
+import com.mitocode.service.SeccionService;
 import com.mitocode.util.Constantes;
 
 @RestController
-@RequestMapping("/api/salon")
-public class SalonController {
-
+@RequestMapping("/api/seccion")
+public class SeccionController {
+	
 	@Autowired
-	SalonService service;
-
+	SeccionService service;
+	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	@PostMapping("/listar")
-	public ResponseWrapper listar(@RequestBody Sucursal sucursal) throws Exception {
+	@PostMapping("/listarPorSucursal")
+	public ResponseWrapper listarPorSucursal(@RequestBody Sucursal sucursal) throws Exception {
 		try {
 			ResponseWrapper response = new ResponseWrapper();
-			List lsSalon = service.listarPorSucursal(sucursal);
-			if (lsSalon != null) {
+			List lsSeccion = service.listarPorSucursal(sucursal);
+			if (lsSeccion != null) {
 				response.setEstado(Constantes.valTransaccionOk);
-				response.setMsg(Constantes.msgListarSalonOk);
-				response.setAaData(lsSalon);
+				response.setMsg(Constantes.msgListarSeccionOk);
+				response.setAaData(lsSeccion);
 			} else {
 				response.setEstado(Constantes.valTransaccionError);
-				response.setMsg(Constantes.msgListarSalonError);
+				response.setMsg(Constantes.msgListarSeccionError);
 			}
 			return response;
 		} catch (Exception e) {
 			System.out.println(this.getClass().getSimpleName() + " listar. ERROR : " + e.getMessage());
-			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listar",
+			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listarPorSucursal",
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(),
@@ -58,53 +57,26 @@ public class SalonController {
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	@PostMapping("/listarPorTipo/{tipoSalon}")
-	public ResponseWrapper listarPorTipo(@RequestBody Sucursal sucursal, @PathVariable("tipoSalon") Integer tipoSalon) throws Exception {
-		try {
-			ResponseWrapper response = new ResponseWrapper();
-			List lsSalon = service.listarPorSucursalYTipoSalon(sucursal, tipoSalon);
-			if (lsSalon != null) {
-				response.setEstado(Constantes.valTransaccionOk);
-				response.setMsg(Constantes.msgListarSalonOk);
-				response.setAaData(lsSalon);
-			} else {
-				response.setEstado(Constantes.valTransaccionError);
-				response.setMsg(Constantes.msgListarSalonError);
-			}
-			return response;
-		} catch (Exception e) {
-			System.out.println(this.getClass().getSimpleName() + " listar. ERROR : " + e.getMessage());
-			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listarPorTipo",
-					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
-							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
-							+ e.getStackTrace()[0].getLineNumber(),
-					sucursal);
-		}
-	}
-
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@PostMapping("/registrar")
-	public ResponseWrapper registrar(@RequestBody SalonDTO salonDTO, BindingResult result) throws Exception {
+	public ResponseWrapper registrar(@RequestBody SeccionDTO seccionDTO, BindingResult result) throws Exception {
 
 		if (result.hasErrors()) {
 			List<String> errors = result.getFieldErrors().stream().map(err -> {
 				return err.getDefaultMessage();
 			}).collect(Collectors.toList());
 			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/registrar",
-					"Error en la validacion: Lista de Errores:" + errors.toString(), salonDTO);
+					"Error en la validacion: Lista de Errores:" + errors.toString(), seccionDTO);
 		}
 		try {
 			ResponseWrapper response = new ResponseWrapper();
-			Salon salon = salonDTO.getSalon();
-			salon.setSucursal(salonDTO.getSucursal());
-			Salon resp = service.registrar(salon);
+			Seccion resp = service.registrar(this.armarSeccion(seccionDTO));
 			if (resp != null) {
 				response.setEstado(Constantes.valTransaccionOk);
-				response.setMsg(Constantes.msgRegistrarSalonOk);
+				response.setMsg(Constantes.msgRegistrarSeccionOk);
 				response.setDefaultObj(resp);
 			} else {
 				response.setEstado(Constantes.valTransaccionError);
-				response.setMsg(Constantes.msgRegistrarSalonError);
+				response.setMsg(Constantes.msgRegistrarSeccionError);
 			}
 			return response;
 		} catch (Exception e) {
@@ -113,31 +85,32 @@ public class SalonController {
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(),
-					salonDTO);
+							seccionDTO);
 		}
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@PutMapping("/actualizar")
-	public ResponseWrapper actualizar(@RequestBody Salon salon, BindingResult result) throws Exception {
+	public ResponseWrapper actualizar(@RequestBody SeccionDTO seccionDTO, BindingResult result) throws Exception {
 
 		if (result.hasErrors()) {
 			List<String> errors = result.getFieldErrors().stream().map(err -> {
 				return err.getDefaultMessage();
 			}).collect(Collectors.toList());
 			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/actualizar",
-					"Error en la validacion: Lista de Errores:" + errors.toString(), salon);
+					"Error en la validacion: Lista de Errores:" + errors.toString(), seccionDTO);
 		}
 		try {
 			ResponseWrapper response = new ResponseWrapper();
-			Salon resp = service.modificar(salon);
+			
+			Seccion resp = service.registrar(this.armarSeccion(seccionDTO));
 			if (resp != null) {
 				response.setEstado(Constantes.valTransaccionOk);
-				response.setMsg(Constantes.msgActualizarSalonOk);
+				response.setMsg(Constantes.msgActualizarSeccionOk);
 				response.setDefaultObj(resp);
 			} else {
 				response.setEstado(Constantes.valTransaccionError);
-				response.setMsg(Constantes.msgActualizarSalonError);
+				response.setMsg(Constantes.msgActualizarSeccionError);
 			}
 			return response;
 		} catch (Exception e) {
@@ -146,22 +119,22 @@ public class SalonController {
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(),
-							salon);
+							seccionDTO);
 		}
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	@DeleteMapping("/{idSalon}")
-	public ResponseWrapper eliminar(@PathVariable("idSalon") Integer idSalon) throws Exception {
+	@DeleteMapping("/{idSeccion}")
+	public ResponseWrapper eliminar(@PathVariable("idSeccion") Integer idSeccion) throws Exception {
 
 		try {
 			ResponseWrapper response = new ResponseWrapper();
-			if (!service.eliminar(idSalon)) {
+			if (!service.eliminar(idSeccion)) {
 				response.setEstado(Constantes.valTransaccionOk);
-				response.setMsg(Constantes.msgEliminarSalonOk);
+				response.setMsg(Constantes.msgEliminarSeccionOk);
 			} else {
 				response.setEstado(Constantes.valTransaccionError);
-				response.setMsg(Constantes.msgEliminarSalonError);
+				response.setMsg(Constantes.msgEliminarSeccionError);
 			}
 			return response;
 		} catch (Exception e) {
@@ -170,7 +143,17 @@ public class SalonController {
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(),
-							idSalon);
+							idSeccion);
 		}
+	}
+	
+	private Seccion armarSeccion(SeccionDTO dto) {
+		Seccion seccion = dto.getSeccion();
+		seccion.setSucursal(dto.getSucursal());
+		seccion.setSalon(dto.getSalon());
+		seccion.setTurno(dto.getTurno());
+		seccion.setNivelEducativo(dto.getNivelEducativo());
+		seccion.setGrado(dto.getGrado());
+		return seccion;
 	}
 }

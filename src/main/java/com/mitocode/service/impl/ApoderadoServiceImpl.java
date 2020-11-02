@@ -7,22 +7,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mitocode.model.Salon;
+import com.mitocode.model.Apoderado;
+import com.mitocode.model.Colegio;
 import com.mitocode.model.Sucursal;
-import com.mitocode.model.Turno;
-import com.mitocode.repo.SalonRepo;
-import com.mitocode.service.SalonService;
+import com.mitocode.repo.ApoderadoRepo;
+import com.mitocode.service.ApoderadoService;
 
 @Service
-public class SalonServiceImpl implements SalonService{
+public class ApoderadoServiceImpl implements ApoderadoService{
 	
 	@Autowired
-	SalonRepo repo;
+	ApoderadoRepo repo;
 	
 	private static final Logger LOG = LoggerFactory.getLogger(Exception.class);
 
 	@Override
-	public Salon registrar(Salon obj) {
+	public Apoderado registrar(Apoderado obj) {
 		try {
 			return repo.save(obj);
 		} catch (Exception e) {
@@ -32,7 +32,7 @@ public class SalonServiceImpl implements SalonService{
 	}
 
 	@Override
-	public Salon modificar(Salon obj) {
+	public Apoderado modificar(Apoderado obj) {
 		try {
 			return repo.save(obj);
 		} catch (Exception e) {
@@ -42,9 +42,9 @@ public class SalonServiceImpl implements SalonService{
 	}
 
 	@Override
-	public Salon encontrar(Integer id) {
+	public Apoderado encontrar(Integer id) {
 		try {
-			return repo.findByIdSalon(id);
+			return repo.findByIdApoderado(id);
 		} catch (Exception e) {
 			LOG.error(this.getClass().getSimpleName() + " encontrar. ERROR : " + e.getMessage());
 			throw e;
@@ -52,13 +52,23 @@ public class SalonServiceImpl implements SalonService{
 	}
 
 	@Override
-	public List<Salon> listar() {
+	public List<Apoderado> listar() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public List<Salon> listarPorSucursal(Sucursal sucursal) {
+	public List<Apoderado> listarPorColegio(Colegio colegio) {
+		try {
+			return repo.findByColegio(colegio);
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " listarPorColegio. ERROR : " + e.getMessage());
+			throw e;
+		}
+	}
+	
+	@Override
+	public List<Apoderado> listarPorSucursal(Sucursal sucursal) {
 		try {
 			return repo.findBySucursal(sucursal);
 		} catch (Exception e) {
@@ -66,17 +76,6 @@ public class SalonServiceImpl implements SalonService{
 			throw e;
 		}
 	}
-	
-	@Override
-	public List<Salon> listarPorSucursalYTipoSalon(Sucursal sucursal, Integer tipoSalon) {
-		try {
-			return repo.findBySucursalAndTipoSalon(sucursal, tipoSalon);
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " listarPorSucursalYTipoSalon. ERROR : " + e.getMessage());
-			throw e;
-		}
-	}
-
 
 	@Override
 	public Boolean eliminar(Integer id) {
@@ -90,5 +89,6 @@ public class SalonServiceImpl implements SalonService{
 			throw e;
 		}
 	}
+
 
 }

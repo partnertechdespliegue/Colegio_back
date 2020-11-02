@@ -20,7 +20,6 @@ import com.mitocode.dto.CursoDTO;
 import com.mitocode.dto.ResponseWrapper;
 import com.mitocode.exception.ExceptionResponse;
 import com.mitocode.model.Colegio;
-import com.mitocode.model.Curso;
 import com.mitocode.model.Tema;
 import com.mitocode.model.TipoCurso;
 import com.mitocode.service.TemaService;

@@ -65,6 +65,10 @@ public class Sucursal {
 	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "sucursal")
+	private List<Seccion> lsSeccion;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "sucursal")
 	private List<DiaLaboral> lsDiaLaboral;
 	
 	@JsonIgnore

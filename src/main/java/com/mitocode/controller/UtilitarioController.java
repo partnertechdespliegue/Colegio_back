@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mitocode.model.Grado;
 import com.mitocode.model.Modulo;
-import com.mitocode.model.NivelEducativo;
 import com.mitocode.model.Pagina;
 import com.mitocode.model.Perfil;
 import com.mitocode.model.Usuario;
@@ -34,26 +32,29 @@ public class UtilitarioController {
 		try {
 			List<String> messages = new ArrayList<>();
 			List<Modulo> tmp_modulo = new ArrayList<>();
-			Modulo modColegio = this.CrearModulo("Gestion Colegio", 1, "icon-gestion-colegio.svg", 1, "app.uicole");
+			Modulo modEstudiante = this.CrearModulo("Gestion estudiante", 1, "icon-gestion-estudiante.svg", 1, "app.uiestu");
+			Modulo modColegio = this.CrearModulo("Gestion colegio", 1, "icon-gestion-colegio.svg", 2, "app.uicole");
+			tmp_modulo.add(modEstudiante);
 			tmp_modulo.add(modColegio);
 			messages.add(service.insertarDatosModulo(tmp_modulo));
 
 			List<Pagina> tmp_pagina = new ArrayList<>();
+			Pagina ge = this.CrearPagina("Estudiante", 1, "icon-estudiantes.svg", 0, "-", "/gestionestudiante", modEstudiante);
+			Pagina ga = this.CrearPagina("Apoderado", 1, "icon-apoderado.svg", 0, "-", "/gestionapoderado", modEstudiante);
 			Pagina gc = this.CrearPagina("Colegio", 1, "icon-colegio.svg", 0, "-", "/gestioncolegio", modColegio);
 			Pagina gs = this.CrearPagina("Sucursal", 1, "icon-sucursal.svg", 0, "-", "/gestionsucursal", modColegio);
 			Pagina gsa = this.CrearPagina("Salon", 1, "icon-salon-clases.svg", 0, "-", "/gestionsalon", modColegio);
+			Pagina gse = this.CrearPagina("Seccion", 1, "icon-seccion.svg", 0, "-", "/gestionseccion", modColegio);
 			Pagina gcu = this.CrearPagina("Curso", 1, "icon-curso.svg", 0, "-", "/gestioncurso", modColegio);
 
+			tmp_pagina.add(ge);
+			tmp_pagina.add(ga);
 			tmp_pagina.add(gc);
 			tmp_pagina.add(gs);
 			tmp_pagina.add(gsa);
+			tmp_pagina.add(gse);
 			tmp_pagina.add(gcu);
 			messages.add(service.insertarDatosPagina(tmp_pagina));
-			
-
-			messages.add(service.insertarDatosDepartamento());
-			messages.add(service.insertarDatosProvincia());
-			messages.add(service.insertarDatosDistrito());
 
 			List<Perfil> tmp_perfil = new ArrayList<>();
 			Perfil role_admi = this.CrearPerfil(1, true, "ROLE_ADMIN");
@@ -65,12 +66,18 @@ public class UtilitarioController {
 			messages.add(service.insertarDatosPerfil(tmp_perfil));
 
 			List<Usuario> tmp_usuarios = new ArrayList<>();
-			Usuario user1 = this.crearUsuario("partnertech@gmail.com", true,
+			Usuario user1 = this.crearUsuario(true,
 					"$2a$10$5lQfLdWrdOiZudh3cCNmbOz2TcU3DtgfjqCeFHvGS1HDBHSvlNdu6", "partner", role_admi);
 			tmp_usuarios.add(user1);
 			messages.add(service.insertarDatosUsuarios(tmp_usuarios));
 			
 			messages.add(service.insertarDatosPerfilesPaginas());
+			messages.add(service.insertarDatosTipoDoc());
+			messages.add(service.insertarDatosPais());
+			messages.add(service.insertarDatosDepartamento());
+			messages.add(service.insertarDatosProvincia());
+			messages.add(service.insertarDatosDistrito());
+			messages.add(service.insertarDatosTipoZona());
 
 			resp_BD.put("mensaje", messages);
 
@@ -114,9 +121,8 @@ public class UtilitarioController {
 		return p;
 	}
 
-	private Usuario crearUsuario(String email, Boolean estado, String pass, String username, Perfil perfil) {
+	private Usuario crearUsuario(Boolean estado, String pass, String username, Perfil perfil) {
 		Usuario u = new Usuario();
-		u.setEmail(email);
 		u.setEstado(estado);
 		u.setUsername(username);
 		u.setPassword(pass);

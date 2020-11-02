@@ -150,4 +150,36 @@ public class UtilitarioServiceImpl implements UtilitarioService {
 		}
 	}
 
+	@Override
+	public String insertarDatosPais() {
+		try {
+			repoUtilitario.insertarPais();
+			return "Se insertó correctamente los Paises";
+		} catch (Exception e) {
+			return "Se insertó correctamente los Paises";
+
+		}
+	}
+
+	@Override
+	public String insertarDatosTipoDoc() {
+		try {
+			repoUtilitario.insertarTipoDoc();
+			return "Se insertó correctamente los Tipos de Documentos";
+		} catch (Exception e) {
+			return "Se insertó correctamente los Tipos de Documentos";
+		}
+	}
+
+	@Override
+	public String insertarDatosTipoZona() {
+		try {
+			repoUtilitario.insertarTipoZona();
+			return "Se insertó correctamente los Tipos de Zona";
+		} catch (Exception e) {
+			return "Se insertó correctamente los Tipos de Zona";
+
+		}
+	}
+
 }

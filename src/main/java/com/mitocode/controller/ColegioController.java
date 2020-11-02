@@ -24,11 +24,13 @@ import com.mitocode.model.Colegio;
 import com.mitocode.model.Grado;
 import com.mitocode.model.NivelEducativo;
 import com.mitocode.model.Parametro;
+import com.mitocode.model.TipoRelacion;
 import com.mitocode.service.ColegioService;
 import com.mitocode.service.GradoService;
 import com.mitocode.service.NivelEducativoService;
 import com.mitocode.service.ParametroService;
 import com.mitocode.service.SucursalService;
+import com.mitocode.service.TipoRelacionService;
 import com.mitocode.util.Constantes;
 
 @RestController
@@ -49,6 +51,9 @@ public class ColegioController {
 	
 	@Autowired
 	GradoService serviceGrado;
+	
+	@Autowired
+	TipoRelacionService serviceTipoRela;
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@GetMapping("/listar")
@@ -98,6 +103,7 @@ public class ColegioController {
 //				}
 				registrarNivelEducativoyGrado(resp);
 				registrarParametro(resp);
+				registrarTipoRelacion(resp);
 				response.setEstado(Constantes.valTransaccionOk);
 				response.setMsg(Constantes.msgRegistrarColegioOk);
 				response.setDefaultObj(resp);
@@ -115,6 +121,26 @@ public class ColegioController {
 		}
 	}
 	
+	private void registrarTipoRelacion(Colegio colegio) {
+		List<TipoRelacion> lsTipoRelacion = new ArrayList<TipoRelacion>();
+		lsTipoRelacion.add(crearTipoRelacion("Padre", colegio));
+		lsTipoRelacion.add(crearTipoRelacion("Madre", colegio));
+		lsTipoRelacion.add(crearTipoRelacion("Abuelo", colegio));
+		lsTipoRelacion.add(crearTipoRelacion("Abuela", colegio));
+		lsTipoRelacion.add(crearTipoRelacion("Tío", colegio));
+		lsTipoRelacion.add(crearTipoRelacion("Tía", colegio));
+		lsTipoRelacion.add(crearTipoRelacion("Hermano", colegio));
+		lsTipoRelacion.add(crearTipoRelacion("Hermana", colegio));
+		serviceTipoRela.registrarList(lsTipoRelacion);
+	}
+
+	private TipoRelacion crearTipoRelacion(String descripcion, Colegio colegio) {
+		TipoRelacion tipoRelacion = new TipoRelacion();
+		tipoRelacion.setDescripcion(descripcion);
+		tipoRelacion.setColegio(colegio);
+		return tipoRelacion;
+	}
+
 	private void registrarNivelEducativoyGrado(Colegio colegio) {
 		List<NivelEducativo> lsNivEduc = new ArrayList<NivelEducativo>();
 		NivelEducativo ni = crearNivelEducativo("Nivel Inicial", colegio);

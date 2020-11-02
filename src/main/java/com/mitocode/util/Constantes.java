@@ -50,7 +50,7 @@ public class Constantes {
 	public static final Integer valTransaccionErrornull = 4;
 	public static final Integer valParametrosNoenviados = 5;
 	public static final Integer valListaSinRegistros = 6; // La lista no tiene registro como resultado
-	
+
 	public static final String CODMINENTCUR = "MINENTCUR";
 
 	// Modulo
@@ -140,7 +140,7 @@ public class Constantes {
 	public static final String msgEliminarTipoCursoError = "Error al eliminar el tipo curso";
 	public static final String msgRegistrarTipoCursoOk = "Tipo curso registrado correctamente";
 	public static final String msgRegistrarTipoCursoError = "Error al registrar el tipo curso";
-	
+
 	// Curso
 	public static final String msgListarCursoOk = "Cursos listados correctamente";
 	public static final String msgListarCursoError = "Error al listar los cursos";
@@ -169,4 +169,64 @@ public class Constantes {
 	public static final String msgRegistrarTemarioOk = "Temario registrado correctamente";
 	public static final String msgRegistrarTemarioError = "Error al registrar el temario";
 	public static final String msgExisteTemario = "Temario registrado anteriormente";
+
+	// TipoRelacion
+	public static final String msgListarTipoRelacionOk = "Tipo relacion listados correctamente";
+	public static final String msgListarTipoRelacionError = "Error al listar los tipo relacion";
+	public static final String msgActualizarTipoRelacionOk = "Tipo relacion actualizado correctamente";
+	public static final String msgActualizarTipoRelacionError = "Error al actualizar el tipo relacion";
+	public static final String msgEliminarTipoRelacionOk = "Tipo relacion eliminado correctamente";
+	public static final String msgEliminarTipoRelacionError = "Error al eliminar el tipo relacion";
+	public static final String msgRegistrarTipoRelacionOk = "Tipo relacion registrado correctamente";
+	public static final String msgRegistrarTipoRelacionError = "Error al registrar el tipo relacion";
+
+	// Relacion
+	public static final String msgListarRelacionOk = "Relaciones listadas correctamente";
+	public static final String msgListarRelacionError = "Error al listar las relaciones";
+	public static final String msgEliminarRelacionOk = "Relacion eliminada correctamente";
+	public static final String msgEliminarRelacionError = "Error al eliminar la relacion";
+	public static final String msgRegistrarRelacionOk = "Relacion registrada correctamente";
+	public static final String msgRegistrarRelacionError = "Error al registrar la relacion";
+	public static final String msgExisteRelacion = "Relación asignada anteriormente";
+
+	// Estudiante
+	public static final String msgListarEstudianteOk = "Estudiantes listados correctamente";
+	public static final String msgListarEstudianteError = "Error al listar los estudiantes";
+	public static final String msgActualizarEstudianteOk = "Estudiante actualizado correctamente";
+	public static final String msgActualizarEstudianteError = "Error al actualizar el estudiante";
+	public static final String msgEliminarEstudianteOk = "Estudiante eliminado correctamente";
+	public static final String msgEliminarEstudianteError = "Error al eliminar el estudiante";
+	public static final String msgEliminarFotoEstudianteOk = "Foto del estudiante eliminada correctamente";
+	public static final String msgEliminarFotoEstudianteError = "Error al eliminar la foto del estudiante";
+	public static final String msgAsignarFotoEstudianteOk = "Foto del estudiante asignada correctamente";
+	public static final String msgAsignarFotoEstudianteError = "Error al asignar la foto del estudiante";
+	public static final String msgRegistrarEstudianteOk = "Estudiante registrado correctamente";
+	public static final String msgRegistrarEstudianteError = "Error al registrar el estudiante";
+
+	// Apoderado
+	public static final String msgListarApoderadoOk = "Apoderados listados correctamente";
+	public static final String msgListarApoderadoError = "Error al listar los apoderados";
+	public static final String msgActualizarApoderadoOk = "Apoderado actualizado correctamente";
+	public static final String msgActualizarApoderadoError = "Error al actualizar el apoderado";
+	public static final String msgEliminarApoderadoOk = "Apoderado eliminado correctamente";
+	public static final String msgEliminarApoderadoError = "Error al eliminar el apoderado";
+	public static final String msgEliminarFotoApoderadoOk = "Foto del apoderado eliminada correctamente";
+	public static final String msgEliminarFotoApoderadoError = "Error al eliminar la foto del apoderado";
+	public static final String msgAsignarFotoApoderadoOk = "Foto del apoderado asignada correctamente";
+	public static final String msgAsignarFotoApoderadoError = "Error al asignar la foto del apoderado";
+	public static final String msgRegistrarApoderadoOk = "Apoderado registrado correctamente";
+	public static final String msgRegistrarApoderadoError = "Error al registrar el apoderado";
+
+	// Seccion
+	public static final String msgEliminarEstudianteSeccionOk = "Estudiantes eliminados a la seccion correctamente";
+	public static final String msgAsignarEstudianteSeccionOk = "Estudiantes asigandodos a la seccion correctamente";
+	public static final String msgAsignarEstudianteSeccionError = "Error al asignar los estudiante a la seccion";
+	public static final String msgListarSeccionOk = "Secciones listadas correctamente";
+	public static final String msgListarSeccionError = "Error al listar las secciones";
+	public static final String msgActualizarSeccionOk = "Seccion actualizada correctamente";
+	public static final String msgActualizarSeccionError = "Error al actualizar la seccion";
+	public static final String msgEliminarSeccionOk = "Seccion eliminada correctamente";
+	public static final String msgEliminarSeccionError = "Error al eliminar la seccion";
+	public static final String msgRegistrarSeccionOk = "Seccion registrada correctamente";
+	public static final String msgRegistrarSeccionError = "Error al registrar la seccion";
 }

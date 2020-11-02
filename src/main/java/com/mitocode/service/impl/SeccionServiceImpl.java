@@ -7,22 +7,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mitocode.model.Salon;
+import com.mitocode.model.Estudiante;
+import com.mitocode.model.Seccion;
 import com.mitocode.model.Sucursal;
-import com.mitocode.model.Turno;
-import com.mitocode.repo.SalonRepo;
-import com.mitocode.service.SalonService;
+import com.mitocode.repo.SeccionRepo;
+import com.mitocode.service.SeccionService;
 
 @Service
-public class SalonServiceImpl implements SalonService{
-	
+public class SeccionServiceImpl implements SeccionService{
+
 	@Autowired
-	SalonRepo repo;
+	SeccionRepo repo;
 	
 	private static final Logger LOG = LoggerFactory.getLogger(Exception.class);
-
+	
 	@Override
-	public Salon registrar(Salon obj) {
+	public Seccion registrar(Seccion obj) {
 		try {
 			return repo.save(obj);
 		} catch (Exception e) {
@@ -32,7 +32,7 @@ public class SalonServiceImpl implements SalonService{
 	}
 
 	@Override
-	public Salon modificar(Salon obj) {
+	public Seccion modificar(Seccion obj) {
 		try {
 			return repo.save(obj);
 		} catch (Exception e) {
@@ -42,9 +42,9 @@ public class SalonServiceImpl implements SalonService{
 	}
 
 	@Override
-	public Salon encontrar(Integer id) {
+	public Seccion encontrar(Integer id) {
 		try {
-			return repo.findByIdSalon(id);
+			return repo.findByIdSeccion(id);
 		} catch (Exception e) {
 			LOG.error(this.getClass().getSimpleName() + " encontrar. ERROR : " + e.getMessage());
 			throw e;
@@ -52,13 +52,13 @@ public class SalonServiceImpl implements SalonService{
 	}
 
 	@Override
-	public List<Salon> listar() {
+	public List<Seccion> listar() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public List<Salon> listarPorSucursal(Sucursal sucursal) {
+	public List<Seccion> listarPorSucursal(Sucursal sucursal) {
 		try {
 			return repo.findBySucursal(sucursal);
 		} catch (Exception e) {
@@ -66,17 +66,6 @@ public class SalonServiceImpl implements SalonService{
 			throw e;
 		}
 	}
-	
-	@Override
-	public List<Salon> listarPorSucursalYTipoSalon(Sucursal sucursal, Integer tipoSalon) {
-		try {
-			return repo.findBySucursalAndTipoSalon(sucursal, tipoSalon);
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " listarPorSucursalYTipoSalon. ERROR : " + e.getMessage());
-			throw e;
-		}
-	}
-
 
 	@Override
 	public Boolean eliminar(Integer id) {

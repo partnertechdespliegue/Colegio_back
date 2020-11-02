@@ -11,5 +11,6 @@ public interface SalonRepo extends JpaRepository<Salon, Integer>{
 	
 	Salon findByIdSalon (Integer idSalon);
 	List<Salon> findBySucursal (Sucursal sucursal);
+	List<Salon> findBySucursalAndTipoSalon (Sucursal sucursal, Integer tipoSalon);
 
 }

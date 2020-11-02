@@ -25,7 +25,6 @@ public class InfoAdicionalToken implements TokenEnhancer {
 		Usuario usuario = usuarioService.findbyUsername(authentication.getName());
 		Map<String, Object> info = new HashMap<>();
 		info.put("username", usuario.getUsername());
-		info.put("correo", usuario.getEmail());
 		info.put("estado", usuario.getEstado());
 		info.put("id_perfil", usuario.getPerfil().getIdPerfil());
 		info.put("nombre_perfil", usuario.getPerfil().getNombres());

@@ -18,7 +18,9 @@ import com.mitocode.model.Departamento;
 import com.mitocode.model.Provincia;
 import com.mitocode.service.DepartamentoService;
 import com.mitocode.service.DistritoService;
+import com.mitocode.service.PaisService;
 import com.mitocode.service.ProvinciaService;
+import com.mitocode.service.TipoZonaService;
 import com.mitocode.util.Constantes;
 
 @RestController
@@ -33,6 +35,12 @@ public class UbigeoController {
 	
 	@Autowired
 	DistritoService serviceDistrito;
+	
+	@Autowired
+	TipoZonaService serviceTipZon;
+	
+	@Autowired
+	PaisService servicePais;
 	
 	@GetMapping("/listar")
 	public ResponseWrapper listar() throws Exception {
@@ -108,6 +116,50 @@ public class UbigeoController {
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(), provincia);
+		}
+	}
+	
+	@GetMapping("/listarTipoZona")
+	public ResponseWrapper listarTipoZona() throws Exception {
+		try {
+			ResponseWrapper response = new ResponseWrapper();
+			List lsTipZona = serviceTipZon.listar();
+			if (lsTipZona != null) {
+				response.setEstado(Constantes.valTransaccionOk);
+				response.setAaData(lsTipZona);
+			} else {
+				response.setEstado(Constantes.valTransaccionError);
+			}
+			return response;
+		} catch (Exception e) {
+			System.out.println(this.getClass().getSimpleName() + " eliminarTipoPermiso. ERROR : " + e.getMessage());
+			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listarTipoZona",
+					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
+							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
+							+ e.getStackTrace()[0].getLineNumber(),
+					null);
+		}
+	}
+	
+	@GetMapping("/listarPais")
+	public ResponseWrapper listarPais() throws Exception {
+		try {
+			ResponseWrapper response = new ResponseWrapper();
+			List lsPais = servicePais.listar();
+			if (lsPais != null) {
+				response.setEstado(Constantes.valTransaccionOk);
+				response.setAaData(lsPais);
+			} else {
+				response.setEstado(Constantes.valTransaccionError);
+			}
+			return response;
+		} catch (Exception e) {
+			System.out.println(this.getClass().getSimpleName() + " listarPais. ERROR : " + e.getMessage());
+			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listar",
+					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
+							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
+							+ e.getStackTrace()[0].getLineNumber(),
+					null);
 		}
 	}
 

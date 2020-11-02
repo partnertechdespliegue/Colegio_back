@@ -19,6 +19,10 @@ public interface UtilitarioService {
 	public String insertarDatosNivelEducativo(List<NivelEducativo> nivelesEducativo);
 	public String insertarDatosGrado(List<Grado> grados);
 	public String insertarDatosDepartamento();
+	public String insertarDatosPais();
 	public String insertarDatosProvincia();
 	public String insertarDatosDistrito();
+	public String insertarDatosTipoDoc();
+	public String insertarDatosTipoZona();
+
 }

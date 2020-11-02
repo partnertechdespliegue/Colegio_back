@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -22,29 +21,36 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idUsuario;
 
-	@NotNull(message="El nombre de usuario no puede estar vacio")
-	@Length(message="El nombre de usuario no debe exceder los 55 caracteres",min=0,max=55)
-	@Column(name = "username", nullable = false, length = 55, unique=true)
+	@NotNull(message = "El nombre de usuario no puede estar vacio")
+	@Length(message = "El nombre de usuario no debe exceder los 55 caracteres", min = 0, max = 55)
+	@Column(name = "username", nullable = false, length = 55, unique = true)
 	private String username;
 
-	@NotNull(message="La contraseña de usuario no puede estar vacio")
-	@Length(message="La contraseña de usuario no debe exceder los 100 caracteres",min=0,max=100)
+	@NotNull(message = "La contraseña de usuario no puede estar vacio")
+	@Length(message = "La contraseña de usuario no debe exceder los 100 caracteres", min = 0, max = 100)
 	@Column(name = "password", nullable = false, length = 100)
 	private String password;
 
-	@Length(message="El email de usuario no debe exceder los 100 caracteres",min=0,max=100)
-	@Email(message="El email debe tener un formato valido")
-	@Column(name = "email", nullable = true, length = 100, unique=true)
-	private String email;
-	
-	@NotNull(message="El estado de usuario no puede estar vacio")
+//	@Length(message="El email de usuario no debe exceder los 100 caracteres",min=0,max=100)
+//	@Email(message="El email debe tener un formato valido")
+//	@Column(name = "email", nullable = true, length = 100, unique=true)
+//	private String email;
+
+	@NotNull(message = "El estado de usuario no puede estar vacio")
 	@Column(name = "estado", nullable = false)
 	private Boolean estado;
-	
-	//@JsonIgnore
+
 	@ManyToOne
-	@JoinColumn(name="id_perfil",nullable=false)
+	@JoinColumn(name = "id_perfil", nullable = false)
 	private Perfil perfil;
+
+	@ManyToOne
+	@JoinColumn(name = "id_estudiante", nullable = true)
+	private Estudiante estudiante;
+
+	@ManyToOne
+	@JoinColumn(name = "id_apoderado", nullable = true)
+	private Apoderado apoderado;
 
 	public Integer getIdUsuario() {
 		return idUsuario;
@@ -70,14 +76,6 @@ public class Usuario {
 		this.password = password;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public Boolean getEstado() {
 		return estado;
 	}
@@ -92,6 +90,22 @@ public class Usuario {
 
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
+	}
+
+	public Estudiante getEstudiante() {
+		return estudiante;
+	}
+
+	public void setEstudiante(Estudiante estudiante) {
+		this.estudiante = estudiante;
+	}
+
+	public Apoderado getApoderado() {
+		return apoderado;
+	}
+
+	public void setApoderado(Apoderado apoderado) {
+		this.apoderado = apoderado;
 	}
 
 }
