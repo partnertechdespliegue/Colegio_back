@@ -128,8 +128,12 @@ public class Constantes {
 	public static final String msgActualizarSalonError = "Error al actualizar el Salon";
 	public static final String msgEliminarSalonOk = "Salon eliminado correctamente";
 	public static final String msgEliminarSalonError = "Error al eliminar el salon";
+	public static final String msgEliminarHorarioSalonOk = "Horario salon eliminado correctamente";
+	public static final String msgEliminarHorarioSalonError = "Error al eliminar el horario salon";
 	public static final String msgRegistrarSalonOk = "Salon registrado correctamente";
 	public static final String msgRegistrarSalonError = "Error al registrar el salon";
+	public static final String msgRegistrarHorarioSalonOk = "Horario salon registrado correctamente";
+	public static final String msgRegistrarHorarioSalonError = "Error al registrar el horario salon";
 
 	// Tipo Curso
 	public static final String msgListarTipoCursoOk = "Tipo cursos listados correctamente";
@@ -227,6 +231,10 @@ public class Constantes {
 	public static final String msgActualizarSeccionError = "Error al actualizar la seccion";
 	public static final String msgEliminarSeccionOk = "Seccion eliminada correctamente";
 	public static final String msgEliminarSeccionError = "Error al eliminar la seccion";
+	public static final String msgEliminarHorarioSeccionOk = "Horario seccion eliminado correctamente";
+	public static final String msgEliminarHorarioSeccionError = "Error al eliminar el horario seccion";
 	public static final String msgRegistrarSeccionOk = "Seccion registrada correctamente";
 	public static final String msgRegistrarSeccionError = "Error al registrar la seccion";
+	public static final String msgRegistrarHorarioSeccionOk = "Horario seccion registrado correctamente";
+	public static final String msgRegistrarHorarioSeccionError = "Error al registrar el horario seccion";
 }

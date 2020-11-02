@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.mitocode.model.Colegio;
 import com.mitocode.model.NivelEducativo;
-import com.mitocode.model.Sucursal;
 import com.mitocode.repo.NivelEducativoRepo;
 import com.mitocode.service.NivelEducativoService;
 

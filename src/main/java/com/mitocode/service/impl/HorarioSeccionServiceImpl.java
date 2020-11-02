@@ -8,21 +8,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mitocode.model.HorarioSalon;
-import com.mitocode.model.Salon;
-import com.mitocode.repo.HorarioSalonRepo;
-import com.mitocode.service.HorarioSalonService;
+import com.mitocode.model.HorarioSeccion;
+import com.mitocode.model.Seccion;
+import com.mitocode.repo.HorarioSeccionRepo;
+import com.mitocode.service.HorarioSeccionService;
 
 @Service
-public class HorarioSalonServiceImpl implements HorarioSalonService{
+public class HorarioSeccionServiceImpl implements HorarioSeccionService{
 
 	@Autowired
-	HorarioSalonRepo repo;
+	HorarioSeccionRepo repo;
 	
 	private static final Logger LOG = LoggerFactory.getLogger(Exception.class);
-	
+
 	@Override
-	public HorarioSalon registrar(HorarioSalon obj) {
+	public HorarioSeccion registrar(HorarioSeccion obj) {
 		try {
 			return repo.save(obj);
 		} catch (Exception e) {
@@ -32,7 +32,7 @@ public class HorarioSalonServiceImpl implements HorarioSalonService{
 	}
 
 	@Override
-	public HorarioSalon modificar(HorarioSalon obj) {
+	public HorarioSeccion modificar(HorarioSeccion obj) {
 		try {
 			return repo.save(obj);
 		} catch (Exception e) {
@@ -42,9 +42,9 @@ public class HorarioSalonServiceImpl implements HorarioSalonService{
 	}
 
 	@Override
-	public HorarioSalon encontrar(Integer id) {
+	public HorarioSeccion encontrar(Integer id) {
 		try {
-			return repo.findByIdHorarioSalon(id);
+			return repo.findByIdHorarioSeccion(id);
 		} catch (Exception e) {
 			LOG.error(this.getClass().getSimpleName() + " encontrar. ERROR : " + e.getMessage());
 			throw e;
@@ -52,27 +52,27 @@ public class HorarioSalonServiceImpl implements HorarioSalonService{
 	}
 
 	@Override
-	public List<HorarioSalon> listar() {
+	public List<HorarioSeccion> listar() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public List<HorarioSalon> listarPorSalon(Salon salon) {
+	public List<HorarioSeccion> listarPorSeccion(Seccion seccion) {
 		try {
-			return repo.findBySalon(salon);
+			return repo.findBySeccion(seccion);
 		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " listarPorSalon. ERROR : " + e.getMessage());
+			LOG.error(this.getClass().getSimpleName() + " listarPorSeccion. ERROR : " + e.getMessage());
 			throw e;
 		}
 	}
 	
 	@Override
-	public List<HorarioSalon> listarporSalonYDia(Integer idSalon, Integer idDiaLaboral) {
+	public List<HorarioSeccion> listarporSeccionYDia(Integer idSeccion, Integer idDiaLaboral) {
 		try {
-			return repo.listarporSalonYDia(idSalon, idDiaLaboral);
+			return repo.listarporSalonYDia(idSeccion, idDiaLaboral);
 		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " listarporSalonYDia. ERROR : " + e.getMessage());
+			LOG.error(this.getClass().getSimpleName() + " listarporSeccionYDia. ERROR : " + e.getMessage());
 			throw e;
 		}
 	}
@@ -91,13 +91,12 @@ public class HorarioSalonServiceImpl implements HorarioSalonService{
 	}
 	
 	@Override
-	public List<HorarioSalon> encontrarPorHoraInicioYFin(Integer idSalon, Integer idDiaLaboral, Timestamp horaInicio, Timestamp horaFin) {
+	public List<HorarioSeccion> encontrarPorHoraInicioYFin(Integer idSeccion, Integer idDiaLaboral, Timestamp horaInicio, Timestamp horaFin) {
 		try {
-			return repo.encontrarPorHoraInicioYFin(idSalon, idDiaLaboral, horaInicio, horaFin);
+			return repo.encontrarPorHoraInicioYFin(idSeccion, idDiaLaboral, horaInicio, horaFin);
 		} catch (Exception e) {
 			LOG.error(this.getClass().getSimpleName() + " encontrarPorHoraInicioYFin. ERROR : " + e.getMessage());
 			throw e;
 		}
 	}
-
 }

@@ -38,6 +38,10 @@ public class HorarioSeccion {
 	@ManyToOne
 	@JoinColumn(name = "id_curso", nullable = false)
 	private Curso curso;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_seccion", nullable = false)
+	private Seccion seccion;
 
 	public Integer getIdHorarioSeccion() {
 		return idHorarioSeccion;
@@ -93,5 +97,13 @@ public class HorarioSeccion {
 
 	public void setCurso(Curso curso) {
 		this.curso = curso;
+	}
+
+	public Seccion getSeccion() {
+		return seccion;
+	}
+
+	public void setSeccion(Seccion seccion) {
+		this.seccion = seccion;
 	}
 }

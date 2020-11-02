@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.mitocode.model.Salon;
 import com.mitocode.model.Sucursal;
-import com.mitocode.model.Turno;
 import com.mitocode.repo.SalonRepo;
 import com.mitocode.service.SalonService;
 

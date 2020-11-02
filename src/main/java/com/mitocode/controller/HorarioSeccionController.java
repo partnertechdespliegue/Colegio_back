@@ -21,33 +21,36 @@ import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.SimpleDateFormat;
 import com.mitocode.dto.ResponseWrapper;
 import com.mitocode.dto.SalonDTO;
+import com.mitocode.dto.SeccionDTO;
 import com.mitocode.exception.ExceptionResponse;
 import com.mitocode.model.HorarioSalon;
+import com.mitocode.model.HorarioSeccion;
 import com.mitocode.model.Parametro;
 import com.mitocode.model.Salon;
-import com.mitocode.service.HorarioSalonService;
+import com.mitocode.model.Seccion;
+import com.mitocode.service.HorarioSeccionService;
 import com.mitocode.service.ParametroService;
 import com.mitocode.util.Constantes;
 
 @RestController
-@RequestMapping("/api/horarioSalon")
-public class HorarioSalonController {
+@RequestMapping("/api/horarioSeccion")
+public class HorarioSeccionController {
 
 	@Autowired
-	HorarioSalonService service;
+	HorarioSeccionService service;
 	
 	@Autowired
 	ParametroService serviceParametro;
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@PostMapping("/listar")
-	public ResponseWrapper listar(@RequestBody Salon salon) throws Exception {
+	public ResponseWrapper listar(@RequestBody Seccion seccion) throws Exception {
 		try {
 			ResponseWrapper response = new ResponseWrapper();
-			List lsHorarioSalon = service.listarPorSalon(salon);
-			if (lsHorarioSalon != null) {
+			List lsHorarioSeccion = service.listarPorSeccion(seccion);
+			if (lsHorarioSeccion != null) {
 				response.setEstado(Constantes.valTransaccionOk);
-				response.setAaData(lsHorarioSalon);
+				response.setAaData(lsHorarioSeccion);
 			} else {
 				response.setEstado(Constantes.valTransaccionError);
 			}
@@ -58,81 +61,80 @@ public class HorarioSalonController {
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(),
-					salon);
+							seccion);
 		}
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	@PostMapping("/listarporSalonYDia")
-	public ResponseWrapper listarporSalonYDia(@RequestBody SalonDTO salonDTO) throws Exception {
+	@PostMapping("/listarporSeccionYDia")
+	public ResponseWrapper listarporSeccionYDia(@RequestBody SeccionDTO seccionDTO) throws Exception {
 		try {
 			ResponseWrapper response = new ResponseWrapper();
-			List lsHorarioSalon = service.listarporSalonYDia(salonDTO.getSalon().getIdSalon(), salonDTO.getDiaLaboral().getIdDiaLaboral());
-			if (lsHorarioSalon != null) {
+			List lsHorarioSeccion = service.listarporSeccionYDia(seccionDTO.getSeccion().getIdSeccion(), seccionDTO.getDiaLaboral().getIdDiaLaboral());
+			if (lsHorarioSeccion != null) {
 				response.setEstado(Constantes.valTransaccionOk);
-				response.setAaData(lsHorarioSalon);
+				response.setAaData(lsHorarioSeccion);
 			} else {
 				response.setEstado(Constantes.valTransaccionError);
 			}
 			return response;
 		} catch (Exception e) {
 			System.out.println(this.getClass().getSimpleName() + " listar. ERROR : " + e.getMessage());
-			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listarporSalonYDia",
+			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listarporSeccionYDia",
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(),
-							salonDTO);
+							seccionDTO);
 		}
 	}
-
+	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@PostMapping("/registrar")
-	public ResponseWrapper registrar(@RequestBody SalonDTO salonDTO, BindingResult result) throws Exception {
-
+	public ResponseWrapper registrar(@RequestBody SeccionDTO seccionDTO, BindingResult result) throws Exception {
 		if (result.hasErrors()) {
 			List<String> errors = result.getFieldErrors().stream().map(err -> {
 				return err.getDefaultMessage();
 			}).collect(Collectors.toList());
 			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/registrar",
-					"Error en la validacion: Lista de Errores:" + errors.toString(), salonDTO);
+					"Error en la validacion: Lista de Errores:" + errors.toString(), seccionDTO);
 		}
 		try {
 			ResponseWrapper response = new ResponseWrapper();
 
-			Parametro parametro = serviceParametro.encontrarPorCodigoYColegio(Constantes.CODMINENTCUR, salonDTO.getColegio());
+			Parametro parametro = serviceParametro.encontrarPorCodigoYColegio(Constantes.CODMINENTCUR, seccionDTO.getColegio());
 			
-			HorarioSalon horarioSalon = salonDTO.getHorarioSalon();
+			HorarioSeccion horarioSeccion = seccionDTO.getHorarioSeccion();
 
 			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(horarioSalon.getHoraInicio());
+			calendar.setTime(horarioSeccion.getHoraInicio());
 			calendar.set(2020, 0, 1);
 			int minCurso = Integer.parseInt(parametro.getValor());
 			
 			calendar.add(Calendar.MINUTE, minCurso);
 
-			horarioSalon.setHoraInicio(new Timestamp(calendar.getTimeInMillis()));
+			horarioSeccion.setHoraInicio(new Timestamp(calendar.getTimeInMillis()));
 
-			calendar.add(Calendar.HOUR, horarioSalon.getHoraDuracion());
-			calendar.add(Calendar.MINUTE, horarioSalon.getMinutoDuracion() - minCurso);
+			calendar.add(Calendar.HOUR, horarioSeccion.getHoraDuracion());
+			calendar.add(Calendar.MINUTE, horarioSeccion.getMinutoDuracion() - minCurso);
 
-			horarioSalon.setHoraFin(new Timestamp(calendar.getTimeInMillis()));
+			horarioSeccion.setHoraFin(new Timestamp(calendar.getTimeInMillis()));
 
-			horarioSalon.setSalon(salonDTO.getSalon());
-			horarioSalon.setCurso(salonDTO.getCurso());
-			horarioSalon.setDiaLaboral(salonDTO.getDiaLaboral());
+			horarioSeccion.setSeccion(seccionDTO.getSeccion());
+			horarioSeccion.setCurso(seccionDTO.getCurso());
+			horarioSeccion.setDiaLaboral(seccionDTO.getDiaLaboral());
 
-			List<HorarioSalon> existe = service.encontrarPorHoraInicioYFin(horarioSalon.getSalon().getIdSalon(), horarioSalon.getDiaLaboral().getIdDiaLaboral(),
-					horarioSalon.getHoraInicio(), horarioSalon.getHoraFin());
+			List<HorarioSeccion> existe = service.encontrarPorHoraInicioYFin(horarioSeccion.getSeccion().getIdSeccion(), horarioSeccion.getDiaLaboral().getIdDiaLaboral(),
+					horarioSeccion.getHoraInicio(), horarioSeccion.getHoraFin());
 
 			if (existe.size() == 0) {
-				HorarioSalon resp = service.registrar(horarioSalon);
+				HorarioSeccion resp = service.registrar(horarioSeccion);
 				if (resp != null) {
 					response.setEstado(Constantes.valTransaccionOk);
-					response.setMsg(Constantes.msgRegistrarHorarioSalonOk);
+					response.setMsg(Constantes.msgRegistrarHorarioSeccionOk);
 					response.setDefaultObj(resp);
 				} else {
 					response.setEstado(Constantes.valTransaccionError);
-					response.setMsg(Constantes.msgRegistrarHorarioSalonError);
+					response.setMsg(Constantes.msgRegistrarHorarioSeccionError);
 				}
 			} else {
 				response.setEstado(Constantes.valTransaccionYaExiste);
@@ -145,29 +147,28 @@ public class HorarioSalonController {
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(),
-					salonDTO);
+							seccionDTO);
 		}
 	}
 
-	private String crearMensaje(HorarioSalon hs) {		
+	private String crearMensaje(HorarioSeccion hs) {		
 		DateFormat dateFormat = new SimpleDateFormat("hh:mm aa");  
 		String horaInicio = dateFormat.format(hs.getHoraInicio());
 		String horaFin = dateFormat.format(hs.getHoraFin());
 		return "Seleccione un horario diferente, debido a que el curso " + hs.getCurso().getDescripcion() + " esta ocupando ese horario, inicia " + horaInicio + " y finaliza " + horaFin;
 	}
-
+	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	@DeleteMapping("/{idHorarioSalon}")
-	public ResponseWrapper eliminar(@PathVariable("idHorarioSalon") Integer idHorarioSalon) throws Exception {
-
+	@DeleteMapping("/{idHorarioSeccion}")
+	public ResponseWrapper eliminar(@PathVariable("idHorarioSeccion") Integer idHorarioSeccion) throws Exception {
 		try {
 			ResponseWrapper response = new ResponseWrapper();
-			if (!service.eliminar(idHorarioSalon)) {
+			if (!service.eliminar(idHorarioSeccion)) {
 				response.setEstado(Constantes.valTransaccionOk);
-				response.setMsg(Constantes.msgEliminarHorarioSalonOk);
+				response.setMsg(Constantes.msgEliminarHorarioSeccionOk);
 			} else {
 				response.setEstado(Constantes.valTransaccionError);
-				response.setMsg(Constantes.msgEliminarHorarioSalonError);
+				response.setMsg(Constantes.msgEliminarHorarioSeccionError);
 			}
 			return response;
 		} catch (Exception e) {
@@ -176,8 +177,7 @@ public class HorarioSalonController {
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(),
-					idHorarioSalon);
+							idHorarioSeccion);
 		}
 	}
-
 }

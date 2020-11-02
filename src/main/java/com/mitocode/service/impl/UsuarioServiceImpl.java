@@ -21,8 +21,6 @@ import com.mitocode.model.Usuario;
 import com.mitocode.repo.UsuarioRepo;
 import com.mitocode.service.IUsuarioService;
 
-import net.bytebuddy.asm.Advice.Return;
-
 @Service
 public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService{
 	

@@ -2,8 +2,6 @@ package com.mitocode.exception;
 
 import java.util.Date;
 
-import org.springframework.http.HttpStatus;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)

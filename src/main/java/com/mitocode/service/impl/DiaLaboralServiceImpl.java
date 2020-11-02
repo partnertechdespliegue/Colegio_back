@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.mitocode.model.DiaLaboral;
 import com.mitocode.model.Sucursal;
-import com.mitocode.model.Turno;
 import com.mitocode.repo.DiaLaboralRepo;
 import com.mitocode.service.DiaLaboralService;
 

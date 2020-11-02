@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.mitocode.model.Grado;
 import com.mitocode.model.NivelEducativo;
-import com.mitocode.model.Salon;
-import com.mitocode.model.Sucursal;
 import com.mitocode.repo.GradoRepo;
 import com.mitocode.service.GradoService;
 
