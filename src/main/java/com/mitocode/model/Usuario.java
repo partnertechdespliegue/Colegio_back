@@ -44,12 +44,20 @@ public class Usuario {
 	private Perfil perfil;
 
 	@ManyToOne
+	@JoinColumn(name = "id_colegio", nullable = true)
+	private Colegio colegio;
+
+	@ManyToOne
 	@JoinColumn(name = "id_estudiante", nullable = true)
 	private Estudiante estudiante;
 
 	@ManyToOne
 	@JoinColumn(name = "id_apoderado", nullable = true)
 	private Apoderado apoderado;
+
+	@ManyToOne
+	@JoinColumn(name = "id_empleado", nullable = true)
+	private Empleado empleado;
 
 	public Integer getIdUsuario() {
 		return idUsuario;
@@ -105,6 +113,22 @@ public class Usuario {
 
 	public void setApoderado(Apoderado apoderado) {
 		this.apoderado = apoderado;
+	}
+
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
+
+	public Colegio getColegio() {
+		return colegio;
+	}
+
+	public void setColegio(Colegio colegio) {
+		this.colegio = colegio;
 	}
 
 }

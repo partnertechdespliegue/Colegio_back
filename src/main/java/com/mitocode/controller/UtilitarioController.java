@@ -33,36 +33,50 @@ public class UtilitarioController {
 			List<String> messages = new ArrayList<>();
 			List<Modulo> tmp_modulo = new ArrayList<>();
 			Modulo modEstudiante = this.CrearModulo("Gestion estudiante", 1, "icon-gestion-estudiante.svg", 1, "app.uiestu");
-			Modulo modColegio = this.CrearModulo("Gestion colegio", 1, "icon-gestion-colegio.svg", 2, "app.uicole");
+			Modulo modEmpleado = this.CrearModulo("Gestion empleado", 1, "icon-gestion-empleado.svg", 2, "app.uiempl");
+			Modulo modColegio = this.CrearModulo("Gestion colegio", 1, "icon-gestion-colegio.svg", 3, "app.uicole");
+			Modulo modConfiguracion = this.CrearModulo("Configuracion", 1, "icon-configuracion.svg", 4, "app.uiconf");
 			tmp_modulo.add(modEstudiante);
 			tmp_modulo.add(modColegio);
+			tmp_modulo.add(modEmpleado);
+			tmp_modulo.add(modConfiguracion);
 			messages.add(service.insertarDatosModulo(tmp_modulo));
 
 			List<Pagina> tmp_pagina = new ArrayList<>();
 			Pagina ge = this.CrearPagina("Estudiante", 1, "icon-estudiantes.svg", 0, "-", "/gestionestudiante", modEstudiante);
 			Pagina ga = this.CrearPagina("Apoderado", 1, "icon-apoderado.svg", 0, "-", "/gestionapoderado", modEstudiante);
+			Pagina emp = this.CrearPagina("Empleado", 1, "icon-empleado.svg", 0, "-", "/gestionempleado", modEmpleado);
+			Pagina depu = this.CrearPagina("Organigrama", 1, "icon-organigrama.svg", 0, "-", "/gestionorganigrama", modEmpleado);
 			Pagina gc = this.CrearPagina("Colegio", 1, "icon-colegio.svg", 0, "-", "/gestioncolegio", modColegio);
 			Pagina gs = this.CrearPagina("Sucursal", 1, "icon-sucursal.svg", 0, "-", "/gestionsucursal", modColegio);
 			Pagina gsa = this.CrearPagina("Salon", 1, "icon-salon-clases.svg", 0, "-", "/gestionsalon", modColegio);
 			Pagina gse = this.CrearPagina("Seccion", 1, "icon-seccion.svg", 0, "-", "/gestionseccion", modColegio);
 			Pagina gcu = this.CrearPagina("Curso", 1, "icon-curso.svg", 0, "-", "/gestioncurso", modColegio);
+			Pagina pa = this.CrearPagina("Parametros", 1, "icon-parametros.svg", 0, "-", "/gestionparametros", modConfiguracion);
 
 			tmp_pagina.add(ge);
 			tmp_pagina.add(ga);
+			tmp_pagina.add(emp);
+			tmp_pagina.add(depu);
 			tmp_pagina.add(gc);
 			tmp_pagina.add(gs);
 			tmp_pagina.add(gsa);
 			tmp_pagina.add(gse);
 			tmp_pagina.add(gcu);
+			tmp_pagina.add(pa);
 			messages.add(service.insertarDatosPagina(tmp_pagina));
 
 			List<Perfil> tmp_perfil = new ArrayList<>();
 			Perfil role_admi = this.CrearPerfil(1, true, "ROLE_ADMIN");
 			Perfil admi = this.CrearPerfil(1, true, "Administrador");
-			Perfil trab = this.CrearPerfil(1, true, "Trabajador");
+			Perfil est = this.CrearPerfil(1, true, "Estudiante");
+			Perfil apo = this.CrearPerfil(1, true, "Apoderado");
+			Perfil mae = this.CrearPerfil(1, true, "Maestro");
 			tmp_perfil.add(role_admi);
 			tmp_perfil.add(admi);
-			tmp_perfil.add(trab);
+			tmp_perfil.add(est);
+			tmp_perfil.add(apo);
+			tmp_perfil.add(mae);
 			messages.add(service.insertarDatosPerfil(tmp_perfil));
 
 			List<Usuario> tmp_usuarios = new ArrayList<>();
@@ -78,6 +92,8 @@ public class UtilitarioController {
 			messages.add(service.insertarDatosProvincia());
 			messages.add(service.insertarDatosDistrito());
 			messages.add(service.insertarDatosTipoZona());
+			messages.add(service.insertarDatosTipoPago());
+			messages.add(service.insertarDatosBanco());
 
 			resp_BD.put("mensaje", messages);
 

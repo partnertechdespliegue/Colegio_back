@@ -46,6 +46,10 @@ public class Colegio {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "colegio")
 	private List<Estudiante> lsEstudiante;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "colegio")
+	private List<DepartamentoColegio> lsDepartamentoColegio;
 
 	public Integer getIdColegio() {
 		return idColegio;

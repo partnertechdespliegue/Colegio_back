@@ -170,6 +170,16 @@ public class UtilitarioServiceImpl implements UtilitarioService {
 			return "Se insertó correctamente los Tipos de Documentos";
 		}
 	}
+	
+	@Override
+	public String insertarDatosTipoPago() {
+		try {
+			repoUtilitario.insertarTipoPago();
+			return "Se insertó correctamente los Tipos de Pago";
+		} catch (Exception e) {
+			return "Se insertó correctamente los Tipos de Pago";
+		}
+	}
 
 	@Override
 	public String insertarDatosTipoZona() {
@@ -182,4 +192,14 @@ public class UtilitarioServiceImpl implements UtilitarioService {
 		}
 	}
 
+	@Override
+	public String insertarDatosBanco() {
+		try {
+			repoUtilitario.insertarBanco();
+			return "Se insertó correctamente los Bancos";
+		} catch (Exception e) {
+			return "Se insertó correctamente los Bancos";
+
+		}
+	}
 }

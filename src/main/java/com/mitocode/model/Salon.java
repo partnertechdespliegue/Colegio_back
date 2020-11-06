@@ -28,6 +28,7 @@ public class Salon {
 	
 	@Column(name = "tipo_salon", nullable = false)
 	private Integer tipoSalon;
+	// 1 -> unico / 2 -> compartido
 	
 	@Column(name = "capacidad", nullable = false)
 	private Integer capacidad;

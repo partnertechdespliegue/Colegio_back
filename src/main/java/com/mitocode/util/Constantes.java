@@ -92,6 +92,12 @@ public class Constantes {
 	public static final String msgRegistrarSucursalOk = "Sucursal registrada correctamente";
 	public static final String msgRegistrarSucursalError = "Error al registrar la Sucursal";
 
+	// Parametro
+	public static final String msgListarParametroOk = "Parametros listados correctamente";
+	public static final String msgListarParametroError = "Error al listar los parametro";
+	public static final String msgActualizarParametroOk = "Parametro actualizado correctamente";
+	public static final String msgActualizarParametroError = "Error al actualizar el parametro";
+
 	// Turno
 	public static final String msgListarTurnoOk = "Turnos listados correctamente";
 	public static final String msgListarTurnoError = "Error al listar los turnos";
@@ -237,4 +243,20 @@ public class Constantes {
 	public static final String msgRegistrarSeccionError = "Error al registrar la seccion";
 	public static final String msgRegistrarHorarioSeccionOk = "Horario seccion registrado correctamente";
 	public static final String msgRegistrarHorarioSeccionError = "Error al registrar el horario seccion";
+
+	// Departamento
+	public static final String msgActualizarDepartamentoOk = "Departamento actualizado correctamente";
+	public static final String msgActualizarDepartamentoError = "Error al actualizar el departamento";
+	public static final String msgEliminarDepartamentoOk = "Departamento eliminado correctamente";
+	public static final String msgEliminarDepartamentoError = "Error al eliminar el departamento";
+	public static final String msgRegistrarDepartamentoOk = "Departamento registrado correctamente";
+	public static final String msgRegistrarDepartamentoError = "Error al registrar el departamento";
+
+	// Puesto
+	public static final String msgActualizarPuestoOk = "Puesto actualizado correctamente";
+	public static final String msgActualizarPuestoError = "Error al actualizar el puesto";
+	public static final String msgEliminarPuestoOk = "Puesto eliminado correctamente";
+	public static final String msgEliminarPuestoError = "Error al eliminar el puesto";
+	public static final String msgRegistrarPuestoOk = "Puesto registrado correctamente";
+	public static final String msgRegistrarPuestoError = "Error al registrar el puesto";
 }

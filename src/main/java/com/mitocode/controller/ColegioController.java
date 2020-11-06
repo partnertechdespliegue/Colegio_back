@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -20,15 +21,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mitocode.dto.ResponseWrapper;
 import com.mitocode.exception.ExceptionResponse;
+import com.mitocode.model.Apoderado;
 import com.mitocode.model.Colegio;
+import com.mitocode.model.DepartamentoColegio;
 import com.mitocode.model.Grado;
 import com.mitocode.model.NivelEducativo;
 import com.mitocode.model.Parametro;
+import com.mitocode.model.Perfil;
+import com.mitocode.model.PuestoColegio;
 import com.mitocode.model.TipoRelacion;
+import com.mitocode.model.Usuario;
 import com.mitocode.service.ColegioService;
+import com.mitocode.service.DepartamentoColegioService;
 import com.mitocode.service.GradoService;
+import com.mitocode.service.IUsuarioService;
 import com.mitocode.service.NivelEducativoService;
 import com.mitocode.service.ParametroService;
+import com.mitocode.service.PuestoColegioService;
 import com.mitocode.service.SucursalService;
 import com.mitocode.service.TipoRelacionService;
 import com.mitocode.util.Constantes;
@@ -54,6 +63,18 @@ public class ColegioController {
 	
 	@Autowired
 	TipoRelacionService serviceTipoRela;
+	
+	@Autowired
+	DepartamentoColegioService serviceDepaCole;
+	
+	@Autowired
+	PuestoColegioService servicePueCole;
+	
+	@Autowired
+	IUsuarioService serviceUsuario;
+	
+	@Autowired
+	private BCryptPasswordEncoder passEncoder;
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@GetMapping("/listar")
@@ -101,9 +122,11 @@ public class ColegioController {
 //						serviceSucursal.registrar(sucursal);
 //					}
 //				}
+				registrarUsuario(resp);
 				registrarNivelEducativoyGrado(resp);
 				registrarParametro(resp);
 				registrarTipoRelacion(resp);
+				registrarDepartamentoPuesto(resp);
 				response.setEstado(Constantes.valTransaccionOk);
 				response.setMsg(Constantes.msgRegistrarColegioOk);
 				response.setDefaultObj(resp);
@@ -121,6 +144,21 @@ public class ColegioController {
 		}
 	}
 	
+	private void registrarUsuario(Colegio colegio) {
+		Usuario usuario = new Usuario();
+		usuario.setUsername(colegio.getCodUgel());
+		usuario.setPassword(passEncoder.encode("admin"));
+		usuario.setEstado(true);
+		usuario.setPerfil(new Perfil(2));
+		usuario.setColegio(colegio);
+		serviceUsuario.registrar(usuario);
+	}
+	
+	private void registrarDepartamentoPuesto(Colegio colegio) {
+		DepartamentoColegio departamentoColegio = serviceDepaCole.registrar(new DepartamentoColegio("Docencia", 1, colegio));
+		servicePueCole.registrar(new PuestoColegio("Maestro", 1, departamentoColegio));
+	}
+
 	private void registrarTipoRelacion(Colegio colegio) {
 		List<TipoRelacion> lsTipoRelacion = new ArrayList<TipoRelacion>();
 		lsTipoRelacion.add(crearTipoRelacion("Padre", colegio));

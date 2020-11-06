@@ -17,30 +17,39 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name="perfil")
+@Table(name = "perfil")
 public class Perfil {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_perfil")
+	@Column(name = "id_perfil")
 	private Integer idPerfil;
-	
-	@NotNull(message="El nombre del perfil no puede estar vacio")
-	@Length(message="El nombre del perfil no puede exceder los 50 caracteres",min=0,max=50)
-	@Column(name="nombres", nullable = false, length=50)
+
+	@NotNull(message = "El nombre del perfil no puede estar vacio")
+	@Length(message = "El nombre del perfil no puede exceder los 50 caracteres", min = 0, max = 50)
+	@Column(name = "nombres", nullable = false, length = 50)
 	private String nombres;
-	
-	@NotNull(message="El ambito del perfil no puede estar vacio")
-	@Column(name="ambito", nullable = false)
+
+	@NotNull(message = "El ambito del perfil no puede estar vacio")
+	@Column(name = "ambito", nullable = false)
 	private Integer ambito;
-	
-	@NotNull(message="El estado del perfil no puede estar vacio")
-	@Column(name="estado", nullable = false)
+
+	@NotNull(message = "El estado del perfil no puede estar vacio")
+	@Column(name = "estado", nullable = false)
 	private Boolean estado;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "perfiles_pagina", joinColumns = @JoinColumn(name = "id_perfil", referencedColumnName = "id_perfil"), inverseJoinColumns = @JoinColumn(name = "id_pagina", referencedColumnName = "id_pagina"))
 	private List<Pagina> lspaginas;
+
+	public Perfil() {
+		super();
+	}
+
+	public Perfil(Integer idPerfil) {
+		super();
+		this.idPerfil = idPerfil;
+	}
 
 	public Integer getIdPerfil() {
 		return idPerfil;
@@ -66,7 +75,6 @@ public class Perfil {
 		this.ambito = ambito;
 	}
 
-
 	public Boolean getEstado() {
 		return estado;
 	}
@@ -82,6 +90,5 @@ public class Perfil {
 	public void setLspaginas(List<Pagina> lspaginas) {
 		this.lspaginas = lspaginas;
 	}
-	
-	
+
 }

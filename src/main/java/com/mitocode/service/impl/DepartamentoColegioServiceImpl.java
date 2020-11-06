@@ -8,20 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mitocode.model.Colegio;
-import com.mitocode.model.Parametro;
-import com.mitocode.repo.ParametroRepo;
-import com.mitocode.service.ParametroService;
+import com.mitocode.model.DepartamentoColegio;
+import com.mitocode.repo.DepartamentoColegioRepo;
+import com.mitocode.service.DepartamentoColegioService;
 
 @Service
-public class ParametroServiceImpl implements ParametroService {
+public class DepartamentoColegioServiceImpl implements DepartamentoColegioService{
 
 	@Autowired
-	ParametroRepo repo;
+	DepartamentoColegioRepo repo;
 
 	private static final Logger LOG = LoggerFactory.getLogger(Exception.class);
 
 	@Override
-	public Parametro registrar(Parametro obj) {
+	public DepartamentoColegio registrar(DepartamentoColegio obj) {
 		try {
 			return repo.save(obj);
 		} catch (Exception e) {
@@ -31,7 +31,7 @@ public class ParametroServiceImpl implements ParametroService {
 	}
 
 	@Override
-	public Parametro modificar(Parametro obj) {
+	public DepartamentoColegio modificar(DepartamentoColegio obj) {
 		try {
 			return repo.save(obj);
 		} catch (Exception e) {
@@ -41,35 +41,23 @@ public class ParametroServiceImpl implements ParametroService {
 	}
 
 	@Override
-	public Parametro encontrar(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Parametro encontrarPorCodigoYColegio(String codigo, Colegio colegio) {
+	public DepartamentoColegio encontrar(Integer id) {
 		try {
-			return repo.findByCodigoAndColegio(codigo, colegio);
+			return repo.findByIdDepartamentoColegio(id);
 		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " encontrarPorCodigoYColegio. ERROR : " + e.getMessage());
+			LOG.error(this.getClass().getSimpleName() + " encontrar. ERROR : " + e.getMessage());
 			throw e;
 		}
 	}
 
 	@Override
-	public List<Parametro> listar() {
+	public List<DepartamentoColegio> listar() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
-	public Boolean eliminar(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Parametro> listarPorColegio(Colegio colegio) {
+	public List<DepartamentoColegio> listarPorColegio(Colegio colegio) {
 		try {
 			return repo.findByColegio(colegio);
 		} catch (Exception e) {
@@ -78,4 +66,16 @@ public class ParametroServiceImpl implements ParametroService {
 		}
 	}
 
+	@Override
+	public Boolean eliminar(Integer id) {
+		try {
+			if (repo.existsById(id)) {
+				repo.deleteById(id);
+			}
+			return repo.existsById(id);
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " eliminar. ERROR : " + e.getMessage());
+			throw e;
+		}
+	}
 }

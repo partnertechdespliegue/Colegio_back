@@ -9,11 +9,15 @@ import com.mitocode.model.Modulo;
 
 public interface UtilitarioRepo extends JpaRepository<Modulo, Integer>{
 	
-	@Query(value = "insert into perfiles_pagina (id_perfil, id_pagina) VALUES (1, 1),(1, 2),(1, 3),(1, 4),(1, 5),(1, 6),(1, 7)", nativeQuery = true)
+	@Query(value = "insert into perfiles_pagina (id_perfil, id_pagina) VALUES (1, 1),(1, 2),(1, 3),(1, 4),(1, 5),"
+			+ "(1, 6),(1, 7),(1, 8),(1, 9),(1, 10)", nativeQuery = true)
 	void insertarPerfilesPagina();
 	
 	@Query(value = "insert into tipo_doc(id_tipo_doc, descripcion) VALUES (1, 'DNI'),(2, 'RUC'),(3, 'PASAPORTE'),(4, 'CARNET EXTRANJERIA')", nativeQuery = true)
 	void insertarTipoDoc();
+	
+	@Query(value = "insert into tipo_pago(id_tipo_pago, descripcion) VALUES (1, 'DEPOSITO CUENTA'),(2, 'EFECTIVO'),(3, 'OTRO');", nativeQuery = true)
+	void insertarTipoPago();
 	
 	@Query(value = "insert into tipo_zona(id_tipo_zona, descripcion) VALUES (1, 'A.H. ASENTAMIENTO HUMANO'),"
 			+ "(2, 'C.H. CONJUNTO HABITACIONAL')," + "(3, 'CAS. CASERÍO')," + "(4, 'COO. COOPERATIVA'),"
@@ -21,6 +25,11 @@ public interface UtilitarioRepo extends JpaRepository<Modulo, Integer>{
 			+ "(9, 'U.V. UNIDAD VECINAL')," + "(10, 'URB. URBANIZACIÓN')," + "(11, 'Z.I. ZONA INDUSTRIAL'),"
 			+ "(12, 'OTROS');", nativeQuery = true)
 	void insertarTipoZona();
+	
+	@Query(value = "insert into banco(id_banco, descripcion) VALUES (1, 'BANCO DE COMERCIO'),"
+			+ "(2, 'BANCO DE CREDITO DEL PERU')," + "(3, 'BANCO PICHINCHA')," + "(4, 'BBVA CONTINENTAL'),"
+			+ "(5, 'CITIBANK')," + "(6, 'INTERBANK')," + "(7, 'MIBANCO');", nativeQuery = true)
+	void insertarBanco();
 	
 	@Query(value = "insert into pais(id_pais, descripcion) VALUES (1,'Afganistán')," + "(2,'Islas Gland'),\r\n"
 			+ "(3,'Albania'),\r\n" + "(4,'Alemania'),\r\n" + "(5,'Andorra'),\r\n" + "(6,'Angola'),\r\n"

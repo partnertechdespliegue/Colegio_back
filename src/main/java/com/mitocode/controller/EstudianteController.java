@@ -17,6 +17,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -36,8 +37,11 @@ import com.mitocode.dto.ResponseWrapper;
 import com.mitocode.exception.ExceptionResponse;
 import com.mitocode.model.Colegio;
 import com.mitocode.model.Estudiante;
+import com.mitocode.model.Perfil;
 import com.mitocode.model.Sucursal;
+import com.mitocode.model.Usuario;
 import com.mitocode.service.EstudianteService;
+import com.mitocode.service.IUsuarioService;
 import com.mitocode.util.Constantes;
 
 @RestController
@@ -48,6 +52,12 @@ public class EstudianteController {
 
 	@Autowired
 	EstudianteService service;
+	
+	@Autowired
+	IUsuarioService serviceUsuario;
+	
+	@Autowired
+	private BCryptPasswordEncoder passEncoder;
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@PostMapping("/listarPorColegio")
@@ -114,6 +124,7 @@ public class EstudianteController {
 			ResponseWrapper response = new ResponseWrapper();
 			Estudiante resp = service.registrar(armarEstudiante(estudianteDTO));
 			if (resp != null) {
+				registrarUsuario(resp);
 				response.setEstado(Constantes.valTransaccionOk);
 				response.setMsg(Constantes.msgRegistrarEstudianteOk);
 				response.setDefaultObj(resp);
@@ -130,6 +141,17 @@ public class EstudianteController {
 							+ e.getStackTrace()[0].getLineNumber(),
 					estudianteDTO);
 		}
+	}
+
+	private void registrarUsuario(Estudiante estudiante) {
+		Usuario usuario = new Usuario();
+		usuario.setUsername(estudiante.getNroDoc());
+		usuario.setPassword(passEncoder.encode(estudiante.getNroDoc()));
+		usuario.setEstado(true);
+		usuario.setPerfil(new Perfil(3));
+		usuario.setEstudiante(estudiante);
+		usuario.setColegio(estudiante.getColegio());
+		serviceUsuario.registrar(usuario);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
