@@ -6,11 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.mitocode.model.DepartamentoColegio;
 import com.mitocode.model.PuestoColegio;
 
 public interface PuestoColegioRepo extends JpaRepository<PuestoColegio, Integer>{
 
 	PuestoColegio findByIdPuestoColegio (Integer id);
+	
+	List<PuestoColegio> findByDepartamentoColegio(DepartamentoColegio departamentoColegio);
 	
 	@Query(value="SELECT pc.* FROM public.puesto_colegio pc\r\n"
 			+ "INNER JOIN departamento_colegio dc on dc.id_departamento_colegio = pc.id_departamento_colegio\r\n"

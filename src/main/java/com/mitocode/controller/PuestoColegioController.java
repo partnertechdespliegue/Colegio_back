@@ -20,6 +20,7 @@ import com.mitocode.dto.DepartamentoDTO;
 import com.mitocode.dto.ResponseWrapper;
 import com.mitocode.exception.ExceptionResponse;
 import com.mitocode.model.Colegio;
+import com.mitocode.model.DepartamentoColegio;
 import com.mitocode.model.PuestoColegio;
 import com.mitocode.service.PuestoColegioService;
 import com.mitocode.util.Constantes;
@@ -50,6 +51,28 @@ public class PuestoColegioController {
 					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
 							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
 							+ e.getStackTrace()[0].getLineNumber(), colegio);
+		}
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@PostMapping("/listarPorDepartamento")
+	public ResponseWrapper listarPorDepartamento(@RequestBody DepartamentoColegio departamentoColegio) throws Exception {
+		try {
+			ResponseWrapper response = new ResponseWrapper();
+			List lsPuestoColegio = service.listarPorDepartamento(departamentoColegio);
+			if (lsPuestoColegio != null) {
+				response.setEstado(Constantes.valTransaccionOk);
+				response.setAaData(lsPuestoColegio);
+			} else {
+				response.setEstado(Constantes.valTransaccionError);
+			}
+			return response;
+		} catch (Exception e) {
+			System.out.println(this.getClass().getSimpleName() + " listar. ERROR : " + e.getMessage());
+			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/listarPorDepartamento",
+					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
+							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
+							+ e.getStackTrace()[0].getLineNumber(), departamentoColegio);
 		}
 	}
 	

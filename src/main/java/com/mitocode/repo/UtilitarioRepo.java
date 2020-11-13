@@ -10,7 +10,7 @@ import com.mitocode.model.Modulo;
 public interface UtilitarioRepo extends JpaRepository<Modulo, Integer>{
 	
 	@Query(value = "insert into perfiles_pagina (id_perfil, id_pagina) VALUES (1, 1),(1, 2),(1, 3),(1, 4),(1, 5),"
-			+ "(1, 6),(1, 7),(1, 8),(1, 9),(1, 10)", nativeQuery = true)
+			+ "(1, 6),(1, 7),(1, 8),(1, 9),(1, 10),(1, 11)", nativeQuery = true)
 	void insertarPerfilesPagina();
 	
 	@Query(value = "insert into tipo_doc(id_tipo_doc, descripcion) VALUES (1, 'DNI'),(2, 'RUC'),(3, 'PASAPORTE'),(4, 'CARNET EXTRANJERIA')", nativeQuery = true)

@@ -93,13 +93,13 @@ public class Empleado {
 	@JoinColumn(name = "id_tipo_zona", nullable = true)
 	private TipoZona tipoZona;
 
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
-	private List<Usuario> lsUsuario;
-
 	@OneToOne
 	@JoinColumn(name = "id_contrato", nullable = false)
 	private Contrato contrato;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
+	private List<Usuario> lsUsuario;
 
 	public Integer getIdEmpleado() {
 		return idEmpleado;

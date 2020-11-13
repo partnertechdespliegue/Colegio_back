@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.mitocode.model.Colegio;
 import com.mitocode.model.Curso;
+import com.mitocode.model.Empleado;
 import com.mitocode.model.Grado;
 import com.mitocode.model.NivelEducativo;
 import com.mitocode.model.Tema;
@@ -12,14 +13,15 @@ import com.mitocode.model.TipoCurso;
 
 public class CursoDTO {
 
+	private Curso curso;
 	private TipoCurso tipoCurso;
 	private Colegio colegio;
-	private Curso curso;
+	private Empleado empleado;
 	private Tema tema;
 	private NivelEducativo nivelEducativo;
 	private Grado grado;
 	private List<Tema> lsTema;
-	
+
 	public CursoDTO() {
 		super();
 		this.lsTema = new ArrayList<Tema>();
@@ -79,6 +81,14 @@ public class CursoDTO {
 
 	public void setLsTema(List<Tema> lsTema) {
 		this.lsTema = lsTema;
+	}
+
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
 	}
 
 }

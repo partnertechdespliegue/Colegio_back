@@ -12,4 +12,8 @@ public interface EmpleadoService extends ICRUD<Empleado>{
 
 	List<Empleado> listarPorSucursal(Sucursal sucursal);
 
+	List<Empleado> listarPorColegioCodPuesto(Integer idColegio, Integer codPuesto);
+
+	List<Empleado> listarPorSucursalCodPuesto(Integer idSucursal, Integer codPuesto);
+
 }

@@ -22,29 +22,33 @@ public class Curso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCurso;
-	
+
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 
 	@Column(name = "hora_semanal", nullable = false)
 	private Integer horaSemanal;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_nivel_educativo", nullable = false)
 	private NivelEducativo nivelEducativo;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_grado", nullable = false)
 	private Grado grado;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_tipo_curso", nullable = false)
 	private TipoCurso tipoCurso;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_empleado", nullable = true)
+	private Empleado empleado;
+
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "curso")
 	private List<Temario> lsTemario;
-	
+
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "curso")
 	private List<HorarioSalon> lsHorarioSalon;
@@ -95,6 +99,14 @@ public class Curso {
 
 	public void setGrado(Grado grado) {
 		this.grado = grado;
+	}
+
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
 	}
 
 }

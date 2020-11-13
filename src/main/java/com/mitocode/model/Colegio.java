@@ -33,6 +33,10 @@ public class Colegio {
 	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "colegio")
+	private List<Usuario> lsUsuario;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "colegio")
 	private List<Parametro> lsParametro;
 	
 	@JsonIgnore

@@ -34,14 +34,14 @@ public class Contrato {
 
 //	@Column(name = "valor_hora", nullable = true)
 //	private Double valorHora;
-	
+
 	@Column(name = "tipo_pago", nullable = false)
 	private Integer tipoPago;
 	// 1 - deposito cuenta / 2 - efectivo / 3 - otro
 
 	@Column(name = "nro_cta", length = 50, nullable = true)
 	private String nroCta;
-	
+
 	@Column(name = "nro_cta_inter", length = 50, nullable = true)
 	private String nroCtaInter;
 
@@ -51,14 +51,10 @@ public class Contrato {
 
 	@Column(name = "tipo_moneda", nullable = true)
 	private Integer tipoMoneda;
-	// 1 - corriente / 2 - ahorros / 3 - interbancaria
-	
+	// 1 - soles / 2 - dolares / 
+
 	@Column(name = "fecha_firma_contrato", nullable = true)
 	private Timestamp fechaFirma;
-
-	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "contrato")
-	private Empleado empleado;
 
 	@ManyToOne
 	@JoinColumn(name = "id_departamento_colegio", nullable = true)
@@ -71,6 +67,10 @@ public class Contrato {
 	@ManyToOne
 	@JoinColumn(name = "id_banco_sueldo", nullable = true)
 	private Banco bancoSueldo;
+
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "contrato")
+	private Empleado empleado;
 
 	public Integer getIdContrato() {
 		return idContrato;
@@ -183,5 +183,5 @@ public class Contrato {
 	public void setBancoSueldo(Banco bancoSueldo) {
 		this.bancoSueldo = bancoSueldo;
 	}
-	
+
 }

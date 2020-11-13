@@ -33,10 +33,12 @@ public class UtilitarioController {
 			List<String> messages = new ArrayList<>();
 			List<Modulo> tmp_modulo = new ArrayList<>();
 			Modulo modEstudiante = this.CrearModulo("Gestion estudiante", 1, "icon-gestion-estudiante.svg", 1, "app.uiestu");
-			Modulo modEmpleado = this.CrearModulo("Gestion empleado", 1, "icon-gestion-empleado.svg", 2, "app.uiempl");
-			Modulo modColegio = this.CrearModulo("Gestion colegio", 1, "icon-gestion-colegio.svg", 3, "app.uicole");
-			Modulo modConfiguracion = this.CrearModulo("Configuracion", 1, "icon-configuracion.svg", 4, "app.uiconf");
+			Modulo modMaestro = this.CrearModulo("Gestion maestro", 1, "icon-gestion-maestro.svg", 2, "app.uimaes");
+			Modulo modEmpleado = this.CrearModulo("Gestion empleado", 1, "icon-gestion-empleado.svg", 3, "app.uiempl");
+			Modulo modColegio = this.CrearModulo("Gestion colegio", 1, "icon-gestion-colegio.svg", 4, "app.uicole");
+			Modulo modConfiguracion = this.CrearModulo("Configuracion", 1, "icon-configuracion.svg", 5, "app.uiconf");
 			tmp_modulo.add(modEstudiante);
+			tmp_modulo.add(modMaestro);
 			tmp_modulo.add(modColegio);
 			tmp_modulo.add(modEmpleado);
 			tmp_modulo.add(modConfiguracion);
@@ -45,6 +47,7 @@ public class UtilitarioController {
 			List<Pagina> tmp_pagina = new ArrayList<>();
 			Pagina ge = this.CrearPagina("Estudiante", 1, "icon-estudiantes.svg", 0, "-", "/gestionestudiante", modEstudiante);
 			Pagina ga = this.CrearPagina("Apoderado", 1, "icon-apoderado.svg", 0, "-", "/gestionapoderado", modEstudiante);
+			Pagina gma = this.CrearPagina("Maestro", 1, "icon-maestro.svg", 0, "-", "/gestionmaestro", modMaestro);
 			Pagina emp = this.CrearPagina("Empleado", 1, "icon-empleado.svg", 0, "-", "/gestionempleado", modEmpleado);
 			Pagina depu = this.CrearPagina("Organigrama", 1, "icon-organigrama.svg", 0, "-", "/gestionorganigrama", modEmpleado);
 			Pagina gc = this.CrearPagina("Colegio", 1, "icon-colegio.svg", 0, "-", "/gestioncolegio", modColegio);
@@ -56,6 +59,7 @@ public class UtilitarioController {
 
 			tmp_pagina.add(ge);
 			tmp_pagina.add(ga);
+			tmp_pagina.add(gma);
 			tmp_pagina.add(emp);
 			tmp_pagina.add(depu);
 			tmp_pagina.add(gc);

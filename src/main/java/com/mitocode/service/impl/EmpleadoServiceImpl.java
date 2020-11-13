@@ -78,6 +78,26 @@ public class EmpleadoServiceImpl implements EmpleadoService{
 	}
 	
 	@Override
+	public List<Empleado> listarPorColegioCodPuesto(Integer idColegio, Integer codPuesto) {
+		try {
+			return repo.listarPorColegioCodPuesto(idColegio, codPuesto);
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " listarPorColegioCodPuesto. ERROR : " + e.getMessage());
+			throw e;
+		}
+	}
+	
+	@Override
+	public List<Empleado> listarPorSucursalCodPuesto(Integer idSucursal, Integer codPuesto) {
+		try {
+			return repo.listarPorSucursalCodPuesto(idSucursal, codPuesto);
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " listarPorSucursalCodPuesto. ERROR : " + e.getMessage());
+			throw e;
+		}
+	}
+	
+	@Override
 	public Boolean eliminar(Integer id) {
 		try {
 			if (repo.existsById(id)) {

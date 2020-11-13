@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mitocode.model.DepartamentoColegio;
 import com.mitocode.model.PuestoColegio;
 import com.mitocode.repo.PuestoColegioRepo;
 import com.mitocode.service.PuestoColegioService;
@@ -61,6 +62,16 @@ public class PuestoColegioServiceImpl implements PuestoColegioService{
 			return repo.listarPorColegio(idColegio);
 		} catch (Exception e) {
 			LOG.error(this.getClass().getSimpleName() + " listarPorColegio. ERROR : " + e.getMessage());
+			throw e;
+		}
+	}
+	
+	@Override
+	public List<PuestoColegio> listarPorDepartamento(DepartamentoColegio departamentoColegio) {
+		try {
+			return repo.findByDepartamentoColegio(departamentoColegio);
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " listarPorDepartamento. ERROR : " + e.getMessage());
 			throw e;
 		}
 	}

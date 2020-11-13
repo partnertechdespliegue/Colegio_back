@@ -259,4 +259,18 @@ public class Constantes {
 	public static final String msgEliminarPuestoError = "Error al eliminar el puesto";
 	public static final String msgRegistrarPuestoOk = "Puesto registrado correctamente";
 	public static final String msgRegistrarPuestoError = "Error al registrar el puesto";
+
+	// Empleado
+	public static final String msgListarEmpleadoOk = "Empleados listados correctamente";
+	public static final String msgListarEmpleadoError = "Error al listar los empleados";
+	public static final String msgActualizarEmpleadoOk = "Empleado actualizado correctamente";
+	public static final String msgActualizarEmpleadoError = "Error al actualizar el empleado";
+	public static final String msgEliminarEmpleadoOk = "Empleado eliminado correctamente";
+	public static final String msgEliminarEmpleadoError = "Error al eliminar el empleado";
+	public static final String msgEliminarFotoEmpleadoOk = "Foto del empleado eliminada correctamente";
+	public static final String msgEliminarFotoEmpleadoError = "Error al eliminar la foto del empleado";
+	public static final String msgAsignarFotoEmpleadoOk = "Foto del empleado asignada correctamente";
+	public static final String msgAsignarFotoEmpleadoError = "Error al asignar la foto del empleado";
+	public static final String msgRegistrarEmpleadoOk = "Empleado registrado correctamente";
+	public static final String msgRegistrarEmpleadoError = "Error al registrar el empleado";
 }

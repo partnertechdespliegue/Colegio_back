@@ -99,6 +99,7 @@ public class CursoController {
 		try {
 			ResponseWrapper response = new ResponseWrapper();
 			Curso curso = cursoDTO.getCurso();
+			curso.setEmpleado(cursoDTO.getEmpleado());
 			curso.setTipoCurso(cursoDTO.getTipoCurso());
 			curso.setNivelEducativo(cursoDTO.getNivelEducativo());
 			curso.setGrado(cursoDTO.getGrado());
