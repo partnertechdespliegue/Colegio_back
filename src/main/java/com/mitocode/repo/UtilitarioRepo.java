@@ -10,7 +10,8 @@ import com.mitocode.model.Modulo;
 public interface UtilitarioRepo extends JpaRepository<Modulo, Integer>{
 	
 	@Query(value = "insert into perfiles_pagina (id_perfil, id_pagina) VALUES (1, 1),(1, 2),(1, 3),(1, 4),(1, 5),"
-			+ "(1, 6),(1, 7),(1, 8),(1, 9),(1, 10),(1, 11)", nativeQuery = true)
+			+ "(1, 6),(1, 7),(1, 8),(1, 9),(1, 10),(1, 11),(1, 12), (5, 1),(5, 2),(5, 3),(5, 4),(5, 5),"
+			+ "(5, 6),(5, 7),(5, 8),(5, 9),(5, 10),(5, 11),(5, 12)", nativeQuery = true)
 	void insertarPerfilesPagina();
 	
 	@Query(value = "insert into tipo_doc(id_tipo_doc, descripcion) VALUES (1, 'DNI'),(2, 'RUC'),(3, 'PASAPORTE'),(4, 'CARNET EXTRANJERIA')", nativeQuery = true)
@@ -30,6 +31,10 @@ public interface UtilitarioRepo extends JpaRepository<Modulo, Integer>{
 			+ "(2, 'BANCO DE CREDITO DEL PERU')," + "(3, 'BANCO PICHINCHA')," + "(4, 'BBVA CONTINENTAL'),"
 			+ "(5, 'CITIBANK')," + "(6, 'INTERBANK')," + "(7, 'MIBANCO');", nativeQuery = true)
 	void insertarBanco();
+	
+	@Query(value = "insert into tipo_asistencia(id_tipo_asistencia, descripcion) VALUES (1, 'PRESENTE'),"
+			+ "(2, 'AUSENTE')," + "(3, 'TARDE')," + "(4, 'TARDE CON EXCUSA')," + "(5, 'SALIDA TEMPRANA');", nativeQuery = true)
+	void insertarTipoAsistencia();
 	
 	@Query(value = "insert into pais(id_pais, descripcion) VALUES (1,'Afganistán')," + "(2,'Islas Gland'),\r\n"
 			+ "(3,'Albania'),\r\n" + "(4,'Alemania'),\r\n" + "(5,'Andorra'),\r\n" + "(6,'Angola'),\r\n"

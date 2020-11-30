@@ -26,5 +26,6 @@ public interface UtilitarioService {
 	public String insertarDatosTipoZona();
 	String insertarDatosTipoPago();
 	String insertarDatosBanco();
+	String insertarDatosTipoAsistencia();
 
 }

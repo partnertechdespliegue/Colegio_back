@@ -50,6 +50,16 @@ public class HorarioSeccionServiceImpl implements HorarioSeccionService{
 			throw e;
 		}
 	}
+	
+	@Override
+	public HorarioSeccion encontrarPorIdHorarioMaestro(Integer idHorarioMaestro) {
+		try {
+			return repo.findByIdHorarioMaestro(idHorarioMaestro);
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " encontrarPorIdHorarioMaestro. ERROR : " + e.getMessage());
+			throw e;
+		}
+	}
 
 	@Override
 	public List<HorarioSeccion> listar() {
@@ -70,7 +80,7 @@ public class HorarioSeccionServiceImpl implements HorarioSeccionService{
 	@Override
 	public List<HorarioSeccion> listarporSeccionYDia(Integer idSeccion, Integer idDiaLaboral) {
 		try {
-			return repo.listarporSalonYDia(idSeccion, idDiaLaboral);
+			return repo.listarporSeccionYDia(idSeccion, idDiaLaboral);
 		} catch (Exception e) {
 			LOG.error(this.getClass().getSimpleName() + " listarporSeccionYDia. ERROR : " + e.getMessage());
 			throw e;

@@ -1,8 +1,5 @@
 package com.mitocode.dto;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import com.mitocode.model.Apoderado;
 import com.mitocode.model.Colegio;
 import com.mitocode.model.Departamento;

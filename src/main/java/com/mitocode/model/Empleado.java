@@ -100,6 +100,10 @@ public class Empleado {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
 	private List<Usuario> lsUsuario;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
+	private List<HorarioMaestro> lsHorarioMaestro;
 
 	public Integer getIdEmpleado() {
 		return idEmpleado;

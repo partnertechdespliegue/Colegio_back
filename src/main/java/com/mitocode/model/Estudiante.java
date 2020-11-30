@@ -111,6 +111,10 @@ public class Estudiante {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "estudiante")
 	private List<SeccionEstudiante> lsSeccionEstudiante;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "estudiante")
+	private List<AsistenciaEstudiante> lsAsistenciaEstudiante;
 
 	public Integer getIdEstudiante() {
 		return idEstudiante;

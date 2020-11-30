@@ -12,4 +12,6 @@ public interface ApoderadoService extends ICRUD<Apoderado>{
 
 	List<Apoderado> listarPorSucursal(Sucursal sucursal);
 
+	Boolean existePorNroDoc(String nroDoc);
+
 }

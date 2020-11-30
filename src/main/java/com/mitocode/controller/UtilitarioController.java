@@ -48,6 +48,7 @@ public class UtilitarioController {
 			Pagina ge = this.CrearPagina("Estudiante", 1, "icon-estudiantes.svg", 0, "-", "/gestionestudiante", modEstudiante);
 			Pagina ga = this.CrearPagina("Apoderado", 1, "icon-apoderado.svg", 0, "-", "/gestionapoderado", modEstudiante);
 			Pagina gma = this.CrearPagina("Maestro", 1, "icon-maestro.svg", 0, "-", "/gestionmaestro", modMaestro);
+			Pagina hma = this.CrearPagina("Horario Maestro", 1, "icon-horario-maestro.svg", 0, "-", "/horariomaestro", modMaestro);
 			Pagina emp = this.CrearPagina("Empleado", 1, "icon-empleado.svg", 0, "-", "/gestionempleado", modEmpleado);
 			Pagina depu = this.CrearPagina("Organigrama", 1, "icon-organigrama.svg", 0, "-", "/gestionorganigrama", modEmpleado);
 			Pagina gc = this.CrearPagina("Colegio", 1, "icon-colegio.svg", 0, "-", "/gestioncolegio", modColegio);
@@ -60,6 +61,7 @@ public class UtilitarioController {
 			tmp_pagina.add(ge);
 			tmp_pagina.add(ga);
 			tmp_pagina.add(gma);
+			tmp_pagina.add(hma);
 			tmp_pagina.add(emp);
 			tmp_pagina.add(depu);
 			tmp_pagina.add(gc);
@@ -98,7 +100,7 @@ public class UtilitarioController {
 			messages.add(service.insertarDatosTipoZona());
 			messages.add(service.insertarDatosTipoPago());
 			messages.add(service.insertarDatosBanco());
-
+			messages.add(service.insertarDatosTipoAsistencia());
 			resp_BD.put("mensaje", messages);
 
 		} catch (Exception e) {

@@ -13,5 +13,6 @@ public interface ApoderadoRepo extends JpaRepository<Apoderado, Integer>{
 	Apoderado findByIdApoderado(Integer idApoderado);
 	List<Apoderado> findByColegio(Colegio colegio);
 	List<Apoderado> findBySucursal(Sucursal sucursal);
-	
+	boolean existsByNroDoc (String nroDoc); 
+
 }

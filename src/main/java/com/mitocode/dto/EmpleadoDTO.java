@@ -5,6 +5,7 @@ import com.mitocode.model.Colegio;
 import com.mitocode.model.Contrato;
 import com.mitocode.model.Departamento;
 import com.mitocode.model.DepartamentoColegio;
+import com.mitocode.model.DiaLaboral;
 import com.mitocode.model.Distrito;
 import com.mitocode.model.Empleado;
 import com.mitocode.model.Pais;
@@ -29,6 +30,7 @@ public class EmpleadoDTO {
 	private DepartamentoColegio departamentoColegio;
 	private PuestoColegio puestoColegio;
 	private Banco bancoSueldo;
+	private DiaLaboral diaLaboral;
 
 	public Empleado getEmpleado() {
 		return empleado;
@@ -132,6 +134,14 @@ public class EmpleadoDTO {
 
 	public void setBancoSueldo(Banco bancoSueldo) {
 		this.bancoSueldo = bancoSueldo;
+	}
+
+	public DiaLaboral getDiaLaboral() {
+		return diaLaboral;
+	}
+
+	public void setDiaLaboral(DiaLaboral diaLaboral) {
+		this.diaLaboral = diaLaboral;
 	}
 
 }

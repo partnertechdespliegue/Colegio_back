@@ -18,6 +18,9 @@ public class HorarioSalon {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idHorarioSalon;
+	
+	@Column(name = "id_horario_maestro", nullable = true)
+	private Integer idHorarioMaestro;
 
 	@Column(name = "hora_duracion", nullable = false)
 	private Integer horaDuracion;
@@ -105,6 +108,14 @@ public class HorarioSalon {
 
 	public void setCurso(Curso curso) {
 		this.curso = curso;
+	}
+
+	public Integer getIdHorarioMaestro() {
+		return idHorarioMaestro;
+	}
+
+	public void setIdHorarioMaestro(Integer idHorarioMaestro) {
+		this.idHorarioMaestro = idHorarioMaestro;
 	}
 
 }

@@ -273,4 +273,12 @@ public class Constantes {
 	public static final String msgAsignarFotoEmpleadoError = "Error al asignar la foto del empleado";
 	public static final String msgRegistrarEmpleadoOk = "Empleado registrado correctamente";
 	public static final String msgRegistrarEmpleadoError = "Error al registrar el empleado";
+
+	// AsistenciaEstudiante
+	public static final String msgActualizarAsistenciaEstudianteOk = "Asistencia actualizada correctamente";
+	public static final String msgActualizarAsistenciaEstudianteError = "Error al actualizar la asistencia";
+	public static final String msgEliminarAsistenciaEstudianteOk = "Asistencia eliminada correctamente";
+	public static final String msgEliminarAsistenciaEstudianteError = "Error al eliminar la asistencia";
+	public static final String msgRegistrarAsistenciaEstudianteOk = "Asistencia registrada correctamente";
+	public static final String msgRegistrarAsistenciaEstudianteError = "Error al registrar la Sucursal";
 }

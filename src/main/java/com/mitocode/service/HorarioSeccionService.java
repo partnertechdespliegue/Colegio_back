@@ -15,4 +15,6 @@ public interface HorarioSeccionService extends ICRUD<HorarioSeccion>{
 	List<HorarioSeccion> encontrarPorHoraInicioYFin(Integer idSeccion, Integer idDiaLaboral, Timestamp horaInicio,
 			Timestamp horaFin);
 
+	HorarioSeccion encontrarPorIdHorarioMaestro(Integer idHorarioMaestro);
+
 }

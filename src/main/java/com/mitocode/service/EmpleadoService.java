@@ -16,4 +16,6 @@ public interface EmpleadoService extends ICRUD<Empleado>{
 
 	List<Empleado> listarPorSucursalCodPuesto(Integer idSucursal, Integer codPuesto);
 
+	Boolean existePorNroDoc(String nroDoc);
+
 }

@@ -40,6 +40,10 @@ public class Salon {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "salon")
 	private List<HorarioSalon> lsHorarioSalon;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "salon")
+	private List<HorarioMaestro> lsHorarioMaestro;
 
 	public Integer getIdSalon() {
 		return idSalon;

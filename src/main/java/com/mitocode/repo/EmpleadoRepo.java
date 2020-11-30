@@ -15,6 +15,7 @@ public interface EmpleadoRepo extends JpaRepository<Empleado, Integer>{
 	Empleado findByIdEmpleado(Integer idEmpleado);
 	List<Empleado> findByColegio(Colegio colegio);
 	List<Empleado> findBySucursal(Sucursal sucursal);
+	boolean existsByNroDoc (String nroDoc); 
 	
 	@Query(value="SELECT em.* FROM public.empleado em\r\n"
 			+ "INNER JOIN contrato co on co.id_contrato = em.id_contrato\r\n"

@@ -202,4 +202,15 @@ public class UtilitarioServiceImpl implements UtilitarioService {
 
 		}
 	}
+	
+	@Override
+	public String insertarDatosTipoAsistencia() {
+		try {
+			repoUtilitario.insertarTipoAsistencia();
+			return "Se insertó correctamente los tipos asistencia";
+		} catch (Exception e) {
+			return "Se insertó correctamente los tipos asistencia";
+
+		}
+	}
 }

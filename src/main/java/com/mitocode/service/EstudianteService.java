@@ -16,4 +16,6 @@ public interface EstudianteService extends ICRUD<Estudiante>{
 
 	List<Estudiante> listarPorSucursalNivEducaGrago(Sucursal sucursal, NivelEducativo nivelEducativo, Grado grado);
 
+	Boolean existePorNroDoc(String nroDoc);
+
 }

@@ -16,5 +16,6 @@ public interface EstudianteRepo extends JpaRepository<Estudiante, Integer> {
 	List<Estudiante> findByColegio(Colegio colegio);
 	Estudiante findByIdEstudiante(Integer idEstudiante);
 	List<Estudiante> findBySucursalAndNivelEducativoAndGrado(Sucursal sucursal, NivelEducativo nivelEducativo, Grado grado);
+	boolean existsByNroDoc (String nroDoc); 
 
 }

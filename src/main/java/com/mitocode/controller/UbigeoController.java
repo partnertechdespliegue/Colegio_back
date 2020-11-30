@@ -49,7 +49,7 @@ public class UbigeoController {
 			List lsdepa = serviceDepartamento.listar();
 			if (lsdepa != null) {
 				response.setEstado(Constantes.valTransaccionOk);
-				response.setAaData(lsdepa);;
+				response.setAaData(lsdepa);
 			} else {
 				response.setEstado(Constantes.valTransaccionError);
 			}

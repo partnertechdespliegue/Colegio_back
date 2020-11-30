@@ -90,5 +90,13 @@ public class ApoderadoServiceImpl implements ApoderadoService{
 		}
 	}
 
-
+	@Override
+	public Boolean existePorNroDoc(String nroDoc) {
+		try {
+			return repo.existsByNroDoc(nroDoc);
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " existePorNroDoc. ERROR : " + e.getMessage());
+			throw e;
+		}
+	}
 }

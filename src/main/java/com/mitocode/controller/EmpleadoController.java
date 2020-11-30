@@ -403,6 +403,21 @@ public class EmpleadoController {
 					idEmpleado);
 		}
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@PostMapping("/existePorNroDoc")
+	public boolean existePorNroDoc(@RequestBody String nroDoc) throws Exception {
+		try {
+			return service.existePorNroDoc(nroDoc);
+		} catch (Exception e) {
+			System.out.println(this.getClass().getSimpleName() + " existePorNroDoc. ERROR : " + e.getMessage());
+			throw new ExceptionResponse(new Date(), this.getClass().getSimpleName() + "/existePorNroDoc",
+					e.getStackTrace()[0].getFileName() + " => " + e.getStackTrace()[0].getMethodName() + " => "
+							+ e.getClass() + " => message: " + e.getMessage() + "=> linea nro: "
+							+ e.getStackTrace()[0].getLineNumber(),
+							nroDoc);
+		}
+	}
 
 	private void eliminarArchivo(String nombreArchivo) {
 		Path rutaArchivo = Paths.get(this.rutaAlmacenamiento).resolve(nombreArchivo).toAbsolutePath();

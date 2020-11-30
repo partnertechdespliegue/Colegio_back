@@ -36,6 +36,14 @@ public class DiaLaboral {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "diaLaboral")
 	private List<HorarioSalon> lsHorarioSalon;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "diaLaboral")
+	private List<HorarioSeccion> lsHorarioSeccion;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "diaLaboral")
+	private List<HorarioMaestro> lsHorarioMaestro;
 
 	public Integer getIdDiaLaboral() {
 		return idDiaLaboral;
